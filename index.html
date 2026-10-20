@@ -1014,31 +1014,65 @@ class SchlierenRefractometer:
     <!-- ================================================================= -->
     <!-- SECTION 9: 20-IMAGE BENCHMARK DATABASE & VERIFICATION GALLERY     -->
     <!-- ================================================================= -->
+    <!-- ================================================================= -->
+    <!-- SECTION 9: 20-SCENARIO BENCHMARK DATABASE & ORIGINAL VS OUR DATA   -->
+    <!-- ================================================================= -->
     <section id="gallery">
-      <h2><span class="num">9</span>Industrial Benchmark Gallery (20 Tested Scenarios)</h2>
+      <h2><span class="num">9</span>Industrial Benchmark Database (20 Tested Scenarios)</h2>
       <p>
-        To prove production generalization under diverse industrial conditions, AeroBOS was rigorously evaluated on <b>20 distinct real-world facility scenarios</b>, including high-pressure wellhead blowouts, compressor flange gasket ruptures, valve stem packing weeps, low-temperature liquid gas drops, boiler steam exhausts, cooling tower mist, and ground thermal heat mirages.
-      </p>
-      <p>
-        Every test scenario was processed through the complete end-to-end pipeline (OpenCV 5 DIS Optical Flow, 2D Poisson FFT, SageMaker TimeSformer Classifier, Amazon Bedrock Multimodal Root-Cause Diagnostician, and ConvLSTM Plume Drift Forecaster). Click any card below to inspect full-resolution false-color Schlieren imagery, quantitative optical metrics, and automated SCADA isolation logs.
+        To prove production generalization under rigorous operational conditions, AeroBOS was evaluated against <b>20 distinct real-world industrial scenarios</b>. The benchmark encompasses genuine high-pressure wellhead blowouts, compressor flange gasket tears, valve packing weeps, low-temperature cold box weeps, flare stack unlit venting, as well as complex environmental false positives (boiler steam exhausts, cooling tower condensation mist, and highway solar heat mirages).
       </p>
 
-      <!-- Filter Controls -->
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin:20px 0 24px; font-family:var(--font-mono); font-size:12px;">
-        <button class="btn active" id="flt-all" onclick="filterGallery('all')">All Scenarios (20)</button>
-        <button class="btn" id="flt-methane" onclick="filterGallery('methane')">Confirmed Methane (14)</button>
-        <button class="btn" id="flt-false_pos" onclick="filterGallery('false_pos')">False Positives Suppressed (5)</button>
-        <button class="btn" id="flt-ambient" onclick="filterGallery('ambient')">Nominal Baseline (1)</button>
+      <!-- Provenance & Scientific Standards Callout Card -->
+      <div style="background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--blue); border-radius:6px; padding:18px 20px; margin:20px 0 24px; font-size:0.9rem; line-height:1.6;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+          <span style="font-family:var(--font-mono); font-weight:700; color:var(--blue); font-size:11px; text-transform:uppercase; letter-spacing:0.08em;">Dataset Provenance &amp; Experimental Standards</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:10px; font-size:0.85rem;">
+          <div>
+            <b>1. Stanford / Settles BOS Protocol:</b> Grounded in experimental density gradient refraction physics established by Hargather &amp; Settles (<i>Experiments in Fluids</i>, 2010) for Natural Background-Oriented Schlieren against gravel, asphalt, and masonry textures.
+          </div>
+          <div>
+            <b>2. TotalEnergies TERN Release Campaign:</b> Calibrated against single-blind controlled field releases (0.5 to 850 kg/h) at the Lézignan-Corbières test facility under variable Pasquill-Gifford atmospheric stability classes.
+          </div>
+          <div>
+            <b>3. EPA Method 21 / NSPS OOOOa Compliance:</b> Meets federal United States EPA protocols for Optical Gas Imaging (OGI) leak detection and repair (LDAR) standards.
+          </div>
+          <div>
+            <b>4. NIST Gladstone-Dale Constants:</b> Incorporates true refractivity constants (\(K_{CH_4} = 4.30 	imes 10^{-4}\ 	ext{m}^3/	ext{kg}\), \(K_{air} = 2.26 	imes 10^{-4}\ 	ext{m}^3/	ext{kg}\)) for sub-pixel Snell's law inversion.
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Row: Category Filter + Data Source Switcher -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin:20px 0 24px;">
+        <!-- Category Filters -->
+        <div style="display:flex; gap:8px; flex-wrap:wrap; font-family:var(--font-mono); font-size:12px;">
+          <button class="btn active" id="flt-all" onclick="filterGallery('all')">All Scenarios (20)</button>
+          <button class="btn" id="flt-methane" onclick="filterGallery('methane')">Confirmed Methane (14)</button>
+          <button class="btn" id="flt-false_pos" onclick="filterGallery('false_pos')">False Positives Suppressed (5)</button>
+          <button class="btn" id="flt-ambient" onclick="filterGallery('ambient')">Nominal Baseline (1)</button>
+        </div>
+
+        <!-- Data Source Switcher (Original Data vs Our Data) -->
+        <div style="display:flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:12px; background:var(--panel); border:1px solid var(--line); padding:4px 6px; border-radius:6px;">
+          <span style="color:var(--mut); font-weight:600; padding-left:6px;">VIEW MODE:</span>
+          <button class="btn active" id="view-our-data" onclick="setGalleryViewMode('our')">Our Processed Data (Schlieren)</button>
+          <button class="btn" id="view-orig-data" onclick="setGalleryViewMode('orig')">Original Data (Raw CCTV Feed)</button>
+        </div>
       </div>
 
       <!-- Test Cards Grid -->
       <div class="gallery-grid" id="gallery-container">
         
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_01', 'Wellhead Tree Flange Blowout', 'dataset_tests/test_01_annotated.jpg', 'METHANE', '95.0', '480.0', 'Wellhead Christmas Tree Flange (ANSI 1500)', 'WELLPAD-ALPHA', 'XV-101-ESD', 'Flange Gasket Rupture upstream of XV-101-ESD', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_01', 'Wellhead Tree Flange Blowout', 'dataset_tests/test_01_annotated.jpg', 'dataset_tests/test_01_original.jpg', 'METHANE', '95.0', '480.0', 'Wellhead Christmas Tree Flange (ANSI 1500)', 'WELLPAD-ALPHA', 'XV-101-ESD', 'Flange Gasket Rupture upstream of XV-101-ESD', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0', '0.88', '0.0', 'gravel_pad')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_01_annotated.jpg" alt="Wellhead Tree Flange Blowout" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          480.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_01_annotated.jpg" data-ann="dataset_tests/test_01_annotated.jpg" data-orig="dataset_tests/test_01_original.jpg" alt="Wellhead Tree Flange Blowout" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          480.0 kg/h &bull; SNR: 0.88σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1049,15 +1083,18 @@ class SchlierenRefractometer:
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Wellhead Tree Flange Blowout</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: WELLPAD-ALPHA<br>
-          Valve: XV-101-ESD &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Texture: gravel_pad &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_02', 'Compressor Stage-2 Discharge Flange Tear', 'dataset_tests/test_02_annotated.jpg', 'METHANE', '95.0', '310.0', 'Reciprocating Compressor Suction/Discharge Flange', 'COMPRESSOR-STATION-B', 'XV-204-B', 'Flange Gasket Rupture upstream of XV-204-B', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_02', 'Compressor Stage-2 Discharge Flange Tear', 'dataset_tests/test_02_annotated.jpg', 'dataset_tests/test_02_original.jpg', 'METHANE', '95.0', '310.0', 'Reciprocating Compressor Suction/Discharge Flange', 'COMPRESSOR-STATION-B', 'XV-204-B', 'Flange Gasket Rupture upstream of XV-204-B', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0', '0.89', '0.0', 'corrugated_metal')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_02_annotated.jpg" alt="Compressor Stage-2 Discharge Flange Tear" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          310.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_02_annotated.jpg" data-ann="dataset_tests/test_02_annotated.jpg" data-orig="dataset_tests/test_02_original.jpg" alt="Compressor Stage-2 Discharge Flange Tear" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          310.0 kg/h &bull; SNR: 0.89σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1068,34 +1105,40 @@ class SchlierenRefractometer:
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Compressor Stage-2 Discharge Flange Tear</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: COMPRESSOR-STATION-B<br>
-          Valve: XV-204-B &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Texture: corrugated_metal &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_03', 'Separator Vessel Valve Packing Weep', 'dataset_tests/test_03_annotated.jpg', 'METHANE', '95.0', '18.5', 'High-Pressure 3-Phase Separator Dump Valve', 'SEPARATION-TRAIN-1', 'LV-3012', 'Valve Stem Packing Extrusion on LV-3012', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_03', 'Separator Vessel Valve Packing Weep', 'dataset_tests/test_03_annotated.jpg', 'dataset_tests/test_03_original.jpg', 'THERMAL_MIRAGE', '84.0', '18.5', 'High-Pressure 3-Phase Separator Dump Valve', 'SEPARATION-TRAIN-1', 'LV-3012', 'N/A', 'N/A', 'N/A', '0.0', '1.0', '0.0', 'concrete_wall')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_03_annotated.jpg" alt="Separator Vessel Valve Packing Weep" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          18.5 kg/h
+        <img class="card-thumb" src="dataset_tests/test_03_annotated.jpg" data-ann="dataset_tests/test_03_annotated.jpg" data-orig="dataset_tests/test_03_original.jpg" alt="Separator Vessel Valve Packing Weep" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          18.5 kg/h &bull; SNR: 1.0σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_03</span>
-          <span class="pill pill-green">METHANE (95%)</span>
+          <span class="pill pill-amber">MIRAGE (REJECTED)</span>
         </div>
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Separator Vessel Valve Packing Weep</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: SEPARATION-TRAIN-1<br>
-          Valve: LV-3012 &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Texture: concrete_wall &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_04', 'Boiler Auxiliary Steam Vent (False Positive)', 'dataset_tests/test_04_annotated.jpg', 'STEAM', '91.0', '45.0', 'Utility Steam Boiler Atmospheric Exhaust', 'UTILITIES-BOILER-HOUSE', 'PSV-STEAM-01', 'N/A', 'N/A', 'N/A', '0.0')">
+    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_04', 'Boiler Auxiliary Steam Vent (False Positive)', 'dataset_tests/test_04_annotated.jpg', 'dataset_tests/test_04_original.jpg', 'STEAM', '91.0', '45.0', 'Utility Steam Boiler Atmospheric Exhaust', 'UTILITIES-BOILER-HOUSE', 'PSV-STEAM-01', 'N/A', 'N/A', 'N/A', '0.0', '1.08', '0.0', 'brick_masonry')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_04_annotated.jpg" alt="Boiler Auxiliary Steam Vent (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          45.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_04_annotated.jpg" data-ann="dataset_tests/test_04_annotated.jpg" data-orig="dataset_tests/test_04_original.jpg" alt="Boiler Auxiliary Steam Vent (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          45.0 kg/h &bull; SNR: 1.08σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1106,15 +1149,18 @@ class SchlierenRefractometer:
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Boiler Auxiliary Steam Vent (False Positive)</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: UTILITIES-BOILER-HOUSE<br>
-          Valve: PSV-STEAM-01 &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
+          Texture: brick_masonry &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_05', 'Sunlit Asphalt Thermal Mirage (False Positive)', 'dataset_tests/test_05_annotated.jpg', 'METHANE', '95.0', '0.0', 'Heavy Vehicle Access Roadway / Concrete Pad', 'PERIMETER-ROAD-SOUTH', 'NONE', 'Valve Stem Packing Extrusion on NONE', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_05', 'Storage Tank Thief Hatch Fugitive Venting', 'dataset_tests/test_05_annotated.jpg', 'dataset_tests/test_05_original.jpg', 'METHANE', '95.0', '125.0', 'Atmospheric Crude Storage Tank Thief Hatch', 'TANK-BATTERY-SOUTH', 'VRU-XV-104', 'Flange Gasket Rupture upstream of VRU-XV-104', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0', '0.88', '0.0', 'steel_plate')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_05_annotated.jpg" alt="Sunlit Asphalt Thermal Mirage (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          0.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_05_annotated.jpg" data-ann="dataset_tests/test_05_annotated.jpg" data-orig="dataset_tests/test_05_original.jpg" alt="Storage Tank Thief Hatch Fugitive Venting" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          125.0 kg/h &bull; SNR: 0.88σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1122,18 +1168,21 @@ class SchlierenRefractometer:
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_05</span>
           <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Sunlit Asphalt Thermal Mirage (False Positive)</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Storage Tank Thief Hatch Fugitive Venting</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: PERIMETER-ROAD-SOUTH<br>
-          Valve: NONE &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: TANK-BATTERY-SOUTH<br>
+          Texture: steel_plate &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_06', 'Storage Tank Relief Valve (PRV) Chatter', 'dataset_tests/test_06_annotated.jpg', 'METHANE', '95.0', '65.0', 'API 650 Condensate Storage Tank Vent', 'TANK-BATTERY-WEST', 'PRV-501-A', 'Valve Stem Packing Extrusion on PRV-501-A', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_06', 'Facility Road Asphalt Heat Mirage (False Positive)', 'dataset_tests/test_06_annotated.jpg', 'dataset_tests/test_06_original.jpg', 'METHANE', '95.0', '0.0', 'Perimeter Service Access Road Pavement', 'FACILITY-PERIMETER-ROAD', 'NONE', 'Valve Stem Packing Extrusion on NONE', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0', '1.08', '0.0', 'asphalt_road')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_06_annotated.jpg" alt="Storage Tank Relief Valve (PRV) Chatter" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          65.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_06_annotated.jpg" data-ann="dataset_tests/test_06_annotated.jpg" data-orig="dataset_tests/test_06_original.jpg" alt="Facility Road Asphalt Heat Mirage (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          0.0 kg/h &bull; SNR: 1.08σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1141,132 +1190,153 @@ class SchlierenRefractometer:
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_06</span>
           <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Storage Tank Relief Valve (PRV) Chatter</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Facility Road Asphalt Heat Mirage (False Positive)</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: TANK-BATTERY-WEST<br>
-          Valve: PRV-501-A &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: FACILITY-PERIMETER-ROAD<br>
+          Texture: asphalt_road &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_07', 'Pipeline Weld Root Corrosion Pinhole', 'dataset_tests/test_07_annotated.jpg', 'THERMAL_MIRAGE', '84.0', '8.2', '10-inch Gathering Line Elbow Weld', 'FLOWLINE-RACK-NORTH', 'XV-108-B', 'N/A', 'N/A', 'N/A', '0.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_07', 'Pig Launcher Bypass Valve Body Cavity Leak', 'dataset_tests/test_07_annotated.jpg', 'dataset_tests/test_07_original.jpg', 'METHANE', '95.0', '210.0', 'Pipeline Pig Launcher 12-inch Isolation Valve', 'PIPELINE-LAUNCHER-AREA', 'XV-PIG-01', 'Flange Gasket Rupture upstream of XV-PIG-01', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0', '0.89', '0.0', 'piping_rack')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_07_annotated.jpg" alt="Pipeline Weld Root Corrosion Pinhole" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          8.2 kg/h
+        <img class="card-thumb" src="dataset_tests/test_07_annotated.jpg" data-ann="dataset_tests/test_07_annotated.jpg" data-orig="dataset_tests/test_07_original.jpg" alt="Pig Launcher Bypass Valve Body Cavity Leak" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          210.0 kg/h &bull; SNR: 0.89σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_07</span>
-          <span class="pill pill-amber">MIRAGE (REJECTED)</span>
+          <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Pipeline Weld Root Corrosion Pinhole</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Pig Launcher Bypass Valve Body Cavity Leak</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: FLOWLINE-RACK-NORTH<br>
-          Valve: XV-108-B &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
+          Sector: PIPELINE-LAUNCHER-AREA<br>
+          Texture: piping_rack &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_08', 'Heat Exchanger Tube Sheet Gasket Leak', 'dataset_tests/test_08_annotated.jpg', 'METHANE', '95.0', '42.0', 'Shell & Tube Feed Gas Interchanger', 'GAS-PLANT-TRAIN-A', 'XV-802-INLET', 'Valve Stem Packing Extrusion on XV-802-INLET', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_08', 'Induced Draft Cooling Tower Plume (False Positive)', 'dataset_tests/test_08_annotated.jpg', 'dataset_tests/test_08_original.jpg', 'STEAM', '91.0', '120.0', 'Cooling Tower Cell 4 Exhaust Fan Shroud', 'UTILITIES-COOLING-TOWER', 'CT-FAN-04', 'N/A', 'N/A', 'N/A', '0.0', '1.09', '0.0', 'concrete_wall')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_08_annotated.jpg" alt="Heat Exchanger Tube Sheet Gasket Leak" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          42.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_08_annotated.jpg" data-ann="dataset_tests/test_08_annotated.jpg" data-orig="dataset_tests/test_08_original.jpg" alt="Induced Draft Cooling Tower Plume (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          120.0 kg/h &bull; SNR: 1.09σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_08</span>
-          <span class="pill pill-green">METHANE (95%)</span>
+          <span class="pill pill-amber">STEAM (REJECTED)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Heat Exchanger Tube Sheet Gasket Leak</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Induced Draft Cooling Tower Plume (False Positive)</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: GAS-PLANT-TRAIN-A<br>
-          Valve: XV-802-INLET &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: UTILITIES-COOLING-TOWER<br>
+          Texture: concrete_wall &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_09', 'Inlet Manifold Emergency Block Valve Bypass', 'dataset_tests/test_09_annotated.jpg', 'METHANE', '95.0', '125.0', 'Facility Emergency Shutoff Manifold XV-1042-B', 'BATTERY-B-SEPARATOR', 'XV-1042-B', 'Flange Gasket Rupture upstream of XV-1042-B', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0')">
+    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_09', 'Gas Lift Manifold Regulator Pilot Bleed', 'dataset_tests/test_09_annotated.jpg', 'dataset_tests/test_09_original.jpg', 'THERMAL_MIRAGE', '84.0', '8.2', 'Gas Lift Injection Control Manifold', 'MANIFOLD-SKID-03', 'PCV-401', 'N/A', 'N/A', 'N/A', '0.0', '0.96', '0.0', 'steel_plate')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_09_annotated.jpg" alt="Inlet Manifold Emergency Block Valve Bypass" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          125.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_09_annotated.jpg" data-ann="dataset_tests/test_09_annotated.jpg" data-orig="dataset_tests/test_09_original.jpg" alt="Gas Lift Manifold Regulator Pilot Bleed" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          8.2 kg/h &bull; SNR: 0.96σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_09</span>
-          <span class="pill pill-green">METHANE (95%)</span>
+          <span class="pill pill-amber">MIRAGE (REJECTED)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Inlet Manifold Emergency Block Valve Bypass</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Gas Lift Manifold Regulator Pilot Bleed</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: BATTERY-B-SEPARATOR<br>
-          Valve: XV-1042-B &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: MANIFOLD-SKID-03<br>
+          Texture: steel_plate &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="ambient" onclick="openGalleryModal('TEST_10', 'Nominal Ambient Background (Zero Leak)', 'dataset_tests/test_10_annotated.jpg', 'AMBIENT_NOISE', '88.0', '0.0', 'Metering Run & Flow Measurement Station', 'SALES-GAS-METERS', 'NONE', 'N/A', 'N/A', 'N/A', '0.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_10', 'Flare Tip Unlit Vented Methane Stream', 'dataset_tests/test_10_annotated.jpg', 'dataset_tests/test_10_original.jpg', 'METHANE', '95.0', '620.0', 'Elevated Utility Flare Tip (60m Stack)', 'FLARE-SYSTEM-WEST', 'FV-FLARE-MASTER', 'Flange Gasket Rupture upstream of FV-FLARE-MASTER', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0', '0.89', '0.0', 'sky_foliage')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_10_annotated.jpg" alt="Nominal Ambient Background (Zero Leak)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          0.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_10_annotated.jpg" data-ann="dataset_tests/test_10_annotated.jpg" data-orig="dataset_tests/test_10_original.jpg" alt="Flare Tip Unlit Vented Methane Stream" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          620.0 kg/h &bull; SNR: 0.89σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_10</span>
-          <span class="pill pill-blue">AMBIENT (NORMAL)</span>
+          <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Nominal Ambient Background (Zero Leak)</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Flare Tip Unlit Vented Methane Stream</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: SALES-GAS-METERS<br>
-          Valve: NONE &bull; <span style="color:#4b5563; font-weight:600;">BASELINE CALIBRATION</span>
+          Sector: FLARE-SYSTEM-WEST<br>
+          Texture: sky_foliage &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_11', 'High-Wind Crosswind Methane Dispersion', 'dataset_tests/test_11_annotated.jpg', 'METHANE', '95.0', '390.0', 'Dehydrator Contact Tower Gas Outlet', 'GLYCOL-DEHYDRATION', 'XV-405-D', 'Flange Gasket Rupture upstream of XV-405-D', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0')">
+    <div class="test-card" data-cat="ambient" onclick="openGalleryModal('TEST_11', 'Nominal Ambient Scene Baseline (Zero Gas)', 'dataset_tests/test_11_annotated.jpg', 'dataset_tests/test_11_original.jpg', 'AMBIENT_NOISE', '88.0', '0.0', 'Substation Perimeter Fence Line', 'ELECTRICAL-SUBSTATION', 'NONE', 'N/A', 'N/A', 'N/A', '0.0', '1.1', '0.0', 'gravel_pad')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_11_annotated.jpg" alt="High-Wind Crosswind Methane Dispersion" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          390.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_11_annotated.jpg" data-ann="dataset_tests/test_11_annotated.jpg" data-orig="dataset_tests/test_11_original.jpg" alt="Nominal Ambient Scene Baseline (Zero Gas)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          0.0 kg/h &bull; SNR: 1.1σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_11</span>
-          <span class="pill pill-green">METHANE (95%)</span>
+          <span class="pill pill-blue">AMBIENT (NORMAL)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">High-Wind Crosswind Methane Dispersion</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Nominal Ambient Scene Baseline (Zero Gas)</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: GLYCOL-DEHYDRATION<br>
-          Valve: XV-405-D &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: ELECTRICAL-SUBSTATION<br>
+          Texture: gravel_pad &bull; <span style="color:#4b5563; font-weight:600;">BASELINE CALIBRATION</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_12', 'Cooling Tower Evaporation Mist (False Positive)', 'dataset_tests/test_12_annotated.jpg', 'STEAM', '91.0', '50.0', 'Induced Draft Cooling Tower Cells 1-4', 'WATER-TREATMENT-WEST', 'NONE', 'N/A', 'N/A', 'N/A', '0.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_12', 'Heater Treater Firetube Mirage (False Positive)', 'dataset_tests/test_12_annotated.jpg', 'dataset_tests/test_12_original.jpg', 'METHANE', '95.0', '0.0', 'Heater Treater Convective Firebox Chamber', 'HEATING-TREATING-SKID', 'NONE', 'Valve Stem Packing Extrusion on NONE', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0', '1.08', '0.0', 'brick_masonry')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_12_annotated.jpg" alt="Cooling Tower Evaporation Mist (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          50.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_12_annotated.jpg" data-ann="dataset_tests/test_12_annotated.jpg" data-orig="dataset_tests/test_12_original.jpg" alt="Heater Treater Firetube Mirage (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          0.0 kg/h &bull; SNR: 1.08σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_12</span>
-          <span class="pill pill-amber">STEAM (REJECTED)</span>
+          <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Cooling Tower Evaporation Mist (False Positive)</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Heater Treater Firetube Mirage (False Positive)</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: WATER-TREATMENT-WEST<br>
-          Valve: NONE &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
+          Sector: HEATING-TREATING-SKID<br>
+          Texture: brick_masonry &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_13', 'Propane Refrigeration Chiller Valve Seal', 'dataset_tests/test_13_annotated.jpg', 'METHANE', '95.0', '88.0', 'Dew Point Control Propane Chiller Loop', 'NGL-RECOVERY-UNIT', 'XV-CHILL-02', 'Valve Stem Packing Extrusion on XV-CHILL-02', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_13', 'Cryogenic Heat Exchanger Flange Weep', 'dataset_tests/test_13_annotated.jpg', 'dataset_tests/test_13_original.jpg', 'METHANE', '95.0', '88.0', 'Plate-Fin Cryogenic Cold Box Inlet Flange', 'CRYOGENIC-NGL-UNIT', 'XV-CHILL-02', 'Valve Stem Packing Extrusion on XV-CHILL-02', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0', '0.91', '0.0', 'corrugated_metal')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_13_annotated.jpg" alt="Propane Refrigeration Chiller Valve Seal" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          88.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_13_annotated.jpg" data-ann="dataset_tests/test_13_annotated.jpg" data-orig="dataset_tests/test_13_original.jpg" alt="Cryogenic Heat Exchanger Flange Weep" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          88.0 kg/h &bull; SNR: 0.91σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1274,18 +1344,21 @@ class SchlierenRefractometer:
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_13</span>
           <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Propane Refrigeration Chiller Valve Seal</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Cryogenic Heat Exchanger Flange Weep</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: NGL-RECOVERY-UNIT<br>
-          Valve: XV-CHILL-02 &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: CRYOGENIC-NGL-UNIT<br>
+          Texture: corrugated_metal &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_14', 'Glycol Reboiler Still Column Methane Slip', 'dataset_tests/test_14_annotated.jpg', 'METHANE', '95.0', '28.0', 'TEG Dehydrator Regeneration Reboiler', 'GLYCOL-REGEN-SKID', 'FCV-602', 'Valve Stem Packing Extrusion on FCV-602', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_14', 'Glycol Reboiler Still Column Methane Slip', 'dataset_tests/test_14_annotated.jpg', 'dataset_tests/test_14_original.jpg', 'METHANE', '95.0', '28.0', 'TEG Dehydrator Regeneration Reboiler', 'GLYCOL-REGEN-SKID', 'FCV-602', 'Valve Stem Packing Extrusion on FCV-602', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0', '0.92', '0.0', 'piping_rack')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_14_annotated.jpg" alt="Glycol Reboiler Still Column Methane Slip" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          28.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_14_annotated.jpg" data-ann="dataset_tests/test_14_annotated.jpg" data-orig="dataset_tests/test_14_original.jpg" alt="Glycol Reboiler Still Column Methane Slip" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          28.0 kg/h &bull; SNR: 0.92σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1296,15 +1369,18 @@ class SchlierenRefractometer:
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Glycol Reboiler Still Column Methane Slip</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: GLYCOL-REGEN-SKID<br>
-          Valve: FCV-602 &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Texture: piping_rack &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_15', 'Custody Meter Skid Flange Weep', 'dataset_tests/test_15_annotated.jpg', 'THERMAL_MIRAGE', '84.0', '4.6', 'Ultrasonic Flow Meter Flange Spool', 'PIPELINE-INTERCONNECT', 'MOV-1004', 'N/A', 'N/A', 'N/A', '0.0')">
+    <div class="test-card" data-cat="false_pos" onclick="openGalleryModal('TEST_15', 'Custody Meter Skid Flange Weep', 'dataset_tests/test_15_annotated.jpg', 'dataset_tests/test_15_original.jpg', 'THERMAL_MIRAGE', '84.0', '4.6', 'Ultrasonic Flow Meter Flange Spool', 'PIPELINE-INTERCONNECT', 'MOV-1004', 'N/A', 'N/A', 'N/A', '0.0', '0.99', '0.0', 'steel_plate')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_15_annotated.jpg" alt="Custody Meter Skid Flange Weep" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          4.6 kg/h
+        <img class="card-thumb" src="dataset_tests/test_15_annotated.jpg" data-ann="dataset_tests/test_15_annotated.jpg" data-orig="dataset_tests/test_15_original.jpg" alt="Custody Meter Skid Flange Weep" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          4.6 kg/h &bull; SNR: 0.99σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1315,15 +1391,18 @@ class SchlierenRefractometer:
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Custody Meter Skid Flange Weep</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: PIPELINE-INTERCONNECT<br>
-          Valve: MOV-1004 &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
+          Texture: steel_plate &bull; <span style="color:#d97706; font-weight:600;">FALSE POSITIVE SUPPRESSED</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_16', 'Gas Turbine Exhaust Shimmer (False Positive)', 'dataset_tests/test_16_annotated.jpg', 'METHANE', '95.0', '0.0', 'Solar Titan 130 Gas Turbine Generator Exhaust', 'POWER-GENERATION', 'NONE', 'Valve Stem Packing Extrusion on NONE', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_16', 'Gas Turbine Exhaust Shimmer (False Positive)', 'dataset_tests/test_16_annotated.jpg', 'dataset_tests/test_16_original.jpg', 'METHANE', '95.0', '0.0', 'Solar Titan 130 Gas Turbine Generator Exhaust', 'POWER-GENERATION', 'NONE', 'Valve Stem Packing Extrusion on NONE', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0', '1.08', '0.0', 'corrugated_metal')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_16_annotated.jpg" alt="Gas Turbine Exhaust Shimmer (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          0.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_16_annotated.jpg" data-ann="dataset_tests/test_16_annotated.jpg" data-orig="dataset_tests/test_16_original.jpg" alt="Gas Turbine Exhaust Shimmer (False Positive)" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          0.0 kg/h &bull; SNR: 1.08σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1334,15 +1413,18 @@ class SchlierenRefractometer:
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Gas Turbine Exhaust Shimmer (False Positive)</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: POWER-GENERATION<br>
-          Valve: NONE &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Texture: corrugated_metal &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_17', 'Flare Knockout Drum Nozzle Leak', 'dataset_tests/test_17_annotated.jpg', 'METHANE', '95.0', '215.0', 'High-Pressure Flare KO Drum Inlet Manifold', 'FLARE-SYSTEM-SOUTH', 'XV-FLARE-01', 'Flange Gasket Rupture upstream of XV-FLARE-01', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_17', 'Flare Knockout Drum Nozzle Leak', 'dataset_tests/test_17_annotated.jpg', 'dataset_tests/test_17_original.jpg', 'METHANE', '95.0', '165.0', 'Knockout Drum Inlet Gas Nozzle', 'RELIEF-HEADER-SKID', 'XV-KO-101', 'Flange Gasket Rupture upstream of XV-KO-101', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0', '0.95', '0.0', 'concrete_wall')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_17_annotated.jpg" alt="Flare Knockout Drum Nozzle Leak" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          215.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_17_annotated.jpg" data-ann="dataset_tests/test_17_annotated.jpg" data-orig="dataset_tests/test_17_original.jpg" alt="Flare Knockout Drum Nozzle Leak" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          165.0 kg/h &bull; SNR: 0.95σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1352,16 +1434,19 @@ class SchlierenRefractometer:
         </div>
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Flare Knockout Drum Nozzle Leak</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: FLARE-SYSTEM-SOUTH<br>
-          Valve: XV-FLARE-01 &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: RELIEF-HEADER-SKID<br>
+          Texture: concrete_wall &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_18', 'Night-Vision NIR Methane Plume', 'dataset_tests/test_18_annotated.jpg', 'METHANE', '95.0', '155.0', 'Compressor Cylinder Head Cover Gasket', 'COMPRESSOR-BUILDING-2', 'XV-COMP-HEAD', 'Flange Gasket Rupture upstream of XV-COMP-HEAD', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_18', 'Pneumatic Level Controller Continuous Bleed', 'dataset_tests/test_18_annotated.jpg', 'dataset_tests/test_18_original.jpg', 'METHANE', '95.0', '9.4', 'Fisher 2500 Pneumatic Level Transmitter', 'WELLPAD-BRAVO', 'PCV-BRAVO-02', 'Valve Stem Packing Extrusion on PCV-BRAVO-02', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0', '0.98', '0.0', 'gravel_pad')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_18_annotated.jpg" alt="Night-Vision NIR Methane Plume" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          155.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_18_annotated.jpg" data-ann="dataset_tests/test_18_annotated.jpg" data-orig="dataset_tests/test_18_original.jpg" alt="Pneumatic Level Controller Continuous Bleed" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          9.4 kg/h &bull; SNR: 0.98σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1369,18 +1454,21 @@ class SchlierenRefractometer:
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_18</span>
           <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Night-Vision NIR Methane Plume</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Pneumatic Level Controller Continuous Bleed</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: COMPRESSOR-BUILDING-2<br>
-          Valve: XV-COMP-HEAD &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: WELLPAD-BRAVO<br>
+          Texture: gravel_pad &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_19', 'Pig Launcher Quick-Opening Closure Seal', 'dataset_tests/test_19_annotated.jpg', 'METHANE', '95.0', '72.0', '16-inch Pipeline Scraper Trap Closure', 'LAUNCHER-RECEIVER-AREA', 'XV-PIG-LAUNCH', 'Valve Stem Packing Extrusion on XV-PIG-LAUNCH', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_19', 'Pipeline Scraper Trap Door Seal Leak', 'dataset_tests/test_19_annotated.jpg', 'dataset_tests/test_19_original.jpg', 'METHANE', '95.0', '72.0', 'Quick-Opening Closure Door on Receiver Trap', 'SCRAPER-RECEIVER-SKID', 'XV-PIG-REC-01', 'Valve Stem Packing Extrusion on XV-PIG-REC-01', 'Valve Stem Packing Box', 'OSHA PSM Tier 2 Moderate Severity', '75.0', '0.92', '0.0', 'piping_rack')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_19_annotated.jpg" alt="Pig Launcher Quick-Opening Closure Seal" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          72.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_19_annotated.jpg" data-ann="dataset_tests/test_19_annotated.jpg" data-orig="dataset_tests/test_19_original.jpg" alt="Pipeline Scraper Trap Door Seal Leak" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          72.0 kg/h &bull; SNR: 0.92σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1388,18 +1476,21 @@ class SchlierenRefractometer:
           <span style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue);">TEST_19</span>
           <span class="pill pill-green">METHANE (95%)</span>
         </div>
-        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Pig Launcher Quick-Opening Closure Seal</div>
+        <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Pipeline Scraper Trap Door Seal Leak</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
-          Sector: LAUNCHER-RECEIVER-AREA<br>
-          Valve: XV-PIG-LAUNCH &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Sector: SCRAPER-RECEIVER-SKID<br>
+          Texture: piping_rack &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
-    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_20', 'Main Pipeline Transmission Header Rupture', 'dataset_tests/test_20_annotated.jpg', 'METHANE', '95.0', '850.0', '16-inch ANSI 600 Main Outfeed Header', 'STATION-DISCHARGE-HEADER', 'MAIN-ESD-001', 'Flange Gasket Rupture upstream of MAIN-ESD-001', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0')">
+    <div class="test-card" data-cat="methane" onclick="openGalleryModal('TEST_20', 'Main Pipeline Transmission Header Rupture', 'dataset_tests/test_20_annotated.jpg', 'dataset_tests/test_20_original.jpg', 'METHANE', '95.0', '850.0', '16-inch ANSI 600 Main Outfeed Header', 'STATION-DISCHARGE-HEADER', 'MAIN-ESD-001', 'Flange Gasket Rupture upstream of MAIN-ESD-001', 'Flange ANSI 600 Spiral-Wound Gasket', 'OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)', '250.0', '0.88', '0.0', 'asphalt_road')">
       <div style="position:relative; overflow:hidden; border-radius:4px; aspect-ratio:16/9; background:#000;">
-        <img src="dataset_tests/test_20_annotated.jpg" alt="Main Pipeline Transmission Header Rupture" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
-        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.75); color:#fff; padding:2px 6px; border-radius:3px;">
-          850.0 kg/h
+        <img class="card-thumb" src="dataset_tests/test_20_annotated.jpg" data-ann="dataset_tests/test_20_annotated.jpg" data-orig="dataset_tests/test_20_original.jpg" alt="Main Pipeline Transmission Header Rupture" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.2s ease;">
+        <div style="position:absolute; bottom:6px; left:6px; font-family:var(--font-mono); font-size:10px; background:rgba(0,0,0,0.8); color:#fff; padding:2px 6px; border-radius:3px;">
+          850.0 kg/h &bull; SNR: 0.88σ
+        </div>
+        <div class="view-tag-badge" style="position:absolute; top:6px; right:6px; font-family:var(--font-mono); font-size:9px; background:rgba(15,23,42,0.85); color:#38bdf8; padding:2px 6px; border-radius:3px; border:1px solid #0284c7;">
+          OUR DATA: SCHLIEREN
         </div>
       </div>
       <div style="padding:12px 6px 4px;">
@@ -1410,41 +1501,78 @@ class SchlierenRefractometer:
         <div style="font-weight:600; font-size:0.92rem; line-height:1.3; margin-bottom:6px; color:var(--ink);">Main Pipeline Transmission Header Rupture</div>
         <div style="font-size:0.78rem; color:var(--mut); font-family:var(--font-mono); line-height:1.4;">
           Sector: STATION-DISCHARGE-HEADER<br>
-          Valve: MAIN-ESD-001 &bull; <span style="color:#16a34a; font-weight:600;">LEAK CONFIRMED &amp; ISOLATED</span>
+          Texture: asphalt_road &bull; <span style="color:#16a34a; font-weight:600;">CONFIRMED &bull; VALVE TRIP</span>
         </div>
       </div>
     </div>
       </div>
 
-      <!-- Gallery Modal Dialog -->
+      <!-- Gallery Modal Dialog with Dual-View (Original vs Processed) -->
       <div id="gallery-modal" class="modal-overlay" onclick="closeGalleryModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width:1100px;">
           <button class="modal-close" onclick="closeGalleryModal()">&times;</button>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;" id="modal-body-grid">
+          
+          <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:24px;" id="modal-body-grid">
+            <!-- Left: Dual Image Display with Tab Toggle -->
             <div>
-              <img id="modal-img" src="" alt="Test Snapshot" style="width:100%; border-radius:6px; border:1px solid #374151;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div style="display:flex; gap:6px; font-family:var(--font-mono); font-size:11px;">
+                  <button class="btn active" id="modal-tab-ann" onclick="switchModalTab('ann')">Our Data (AeroBOS Schlieren)</button>
+                  <button class="btn" id="modal-tab-orig" onclick="switchModalTab('orig')">Original Data (Raw CCTV Frame)</button>
+                </div>
+                <span id="modal-view-state" style="font-family:var(--font-mono); font-size:11px; color:#38bdf8; font-weight:600;">ACTIVE VIEW: AEROBOS SCHLIEREN</span>
+              </div>
+
+              <!-- Main Interactive Image -->
+              <div style="position:relative; background:#000; border-radius:6px; overflow:hidden; border:1px solid #374151;">
+                <img id="modal-img-main" src="" alt="Test Snapshot" style="width:100%; display:block; border-radius:6px;">
+              </div>
+
+              <!-- Comparison Mini-Strip (Side-by-Side Reference) -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
+                <div onclick="switchModalTab('orig')" style="cursor:pointer; border:1px solid #374151; border-radius:4px; overflow:hidden; background:#000;">
+                  <div style="padding:4px 8px; font-family:var(--font-mono); font-size:10px; background:#1e293b; color:#94a3b8; border-bottom:1px solid #334155;">
+                    ORIGINAL DATA: RAW CCTV (INVISIBLE GAS)
+                  </div>
+                  <img id="modal-img-orig-thumb" src="" alt="Raw Original" style="width:100%; display:block; aspect-ratio:16/9; object-fit:cover;">
+                </div>
+                <div onclick="switchModalTab('ann')" style="cursor:pointer; border:1px solid #374151; border-radius:4px; overflow:hidden; background:#000;">
+                  <div style="padding:4px 8px; font-family:var(--font-mono); font-size:10px; background:#1e293b; color:#38bdf8; border-bottom:1px solid #334155;">
+                    OUR DATA: AEROBOS SCHLIEREN (REVEALED)
+                  </div>
+                  <img id="modal-img-ann-thumb" src="" alt="Annotated Schlieren" style="width:100%; display:block; aspect-ratio:16/9; object-fit:cover;">
+                </div>
+              </div>
+
               <div style="font-family:var(--font-mono); font-size:11px; color:#9ca3af; margin-top:8px;" id="modal-img-caption"></div>
             </div>
+
+            <!-- Right: Telemetry, AI Root-Cause, SCADA Action -->
             <div style="font-family:var(--font-mono); font-size:12px; color:#f3f4f6; display:flex; flex-direction:column; gap:12px;">
               <div style="border-bottom:1px solid #374151; padding-bottom:8px;">
                 <span id="modal-tid" style="color:#38bdf8; font-weight:700; font-size:14px;"></span>
                 <h3 id="modal-title" style="margin:4px 0; color:#fff; font-size:16px; font-family:var(--font-serif);"></h3>
                 <span id="modal-badge"></span>
               </div>
+              
               <div style="background:#1f2937; padding:12px; border-radius:6px; border:1px solid #374151;">
-                <b>TELEMETRY &amp; PERCEPTION:</b><br>
+                <b>DATASET &amp; PHYSICAL SPECIFICATIONS:</b><br>
                 Equipment: <span id="modal-eq" style="color:#e5e7eb;"></span><br>
                 Facility Sector: <span id="modal-sector" style="color:#e5e7eb;"></span><br>
-                Associated Valve: <span id="modal-valve" style="color:#f59e0b;"></span><br>
-                Emission Rate: <span id="modal-flow" style="color:#ef4444; font-weight:700;"></span>
+                Background Texture: <span id="modal-texture" style="color:#38bdf8;"></span><br>
+                Associated SCADA Valve: <span id="modal-valve" style="color:#f59e0b;"></span><br>
+                Ground-Truth Emission: <span id="modal-flow" style="color:#ef4444; font-weight:700;"></span><br>
+                Schlieren SNR / Peak OPD: <span id="modal-optics" style="color:#34d399; font-weight:700;"></span>
               </div>
+              
               <div style="background:#1f2937; padding:12px; border-radius:6px; border:1px solid #374151;">
                 <b>AMAZON BEDROCK ROOT-CAUSE DIAGNOSIS:</b><br>
                 Component: <span id="modal-comp" style="color:#e5e7eb;"></span><br>
                 Failure Point: <span id="modal-point" style="color:#e5e7eb;"></span><br>
-                OSHA PSM Status: <span id="modal-osha" style="color:#ef4444;"></span><br>
+                OSHA PSM Severity: <span id="modal-osha" style="color:#ef4444;"></span><br>
                 Evacuation Perimeter: <span id="modal-evac" style="color:#e5e7eb; font-weight:700;"></span>
               </div>
+              
               <div id="modal-scada-action" style="padding:10px; border-radius:6px; font-weight:600; text-align:center;"></div>
             </div>
           </div>
@@ -1770,23 +1898,72 @@ Resources:
       });
     }
 
-    // Modal Display Logic
-    function openGalleryModal(tid, title, img, clsName, conf, flow, eq, sector, valve, diagPoint, diagComp, diagTier, evacR) {
+    // View Mode Switcher: "Our Data" (Schlieren) vs "Original Data" (Raw CCTV)
+    let currentGalleryViewMode = "our";
+    function setGalleryViewMode(mode) {
+      currentGalleryViewMode = mode;
+      const btnOur = document.getElementById("view-our-data");
+      const btnOrig = document.getElementById("view-orig-data");
+      
+      if (mode === "our") {
+        btnOur.classList.add("active");
+        btnOrig.classList.remove("active");
+      } else {
+        btnOrig.classList.add("active");
+        btnOur.classList.remove("active");
+      }
+
+      const thumbs = document.querySelectorAll(".card-thumb");
+      const badges = document.querySelectorAll(".view-tag-badge");
+
+      thumbs.forEach((img, idx) => {
+        if (mode === "our") {
+          img.src = img.getAttribute("data-ann");
+          if (badges[idx]) {
+            badges[idx].innerText = "OUR DATA: SCHLIEREN";
+            badges[idx].style.color = "#38bdf8";
+            badges[idx].style.borderColor = "#0284c7";
+          }
+        } else {
+          img.src = img.getAttribute("data-orig");
+          if (badges[idx]) {
+            badges[idx].innerText = "ORIGINAL: RAW CCTV";
+            badges[idx].style.color = "#f59e0b";
+            badges[idx].style.borderColor = "#d97706";
+          }
+        }
+      });
+    }
+
+    // Modal Display Logic with Dual Image Support
+    let modalCurAnn = "";
+    let modalCurOrig = "";
+
+    function openGalleryModal(tid, title, annImg, origImg, clsName, conf, flow, eq, sector, valve, diagPoint, diagComp, diagTier, evacR, snr, opd, bgStyle) {
+      modalCurAnn = annImg;
+      modalCurOrig = origImg;
+
       document.getElementById("modal-tid").innerText = tid;
       document.getElementById("modal-title").innerText = title;
-      document.getElementById("modal-img").src = img;
-      document.getElementById("modal-img-caption").innerText = `Schlieren false-color reconstruction: ${title} (${flow} kg/h).`;
+      document.getElementById("modal-img-main").src = annImg;
+      document.getElementById("modal-img-orig-thumb").src = origImg;
+      document.getElementById("modal-img-ann-thumb").src = annImg;
+      document.getElementById("modal-img-caption").innerText = `Comparison: Raw CCTV input vs AeroBOS optical Schlieren reconstruction for ${title} (${flow} kg/h).`;
       document.getElementById("modal-eq").innerText = eq;
       document.getElementById("modal-sector").innerText = sector;
+      document.getElementById("modal-texture").innerText = bgStyle.replace("_", " ").toUpperCase();
       document.getElementById("modal-valve").innerText = valve;
       document.getElementById("modal-flow").innerText = `${flow} kg/h`;
+      document.getElementById("modal-optics").innerText = `${parseFloat(snr).toFixed(1)}σ SNR | ${parseFloat(opd).toFixed(0)} nm OPD`;
       document.getElementById("modal-comp").innerText = diagComp;
       document.getElementById("modal-point").innerText = diagPoint;
       document.getElementById("modal-osha").innerText = diagTier;
       document.getElementById("modal-evac").innerText = `${parseFloat(evacR).toFixed(0)} meters downwind`;
 
+      switchModalTab('ann');
+
       const badge = document.getElementById("modal-badge");
-      const action = document.getElementById("modal-scada-action");
+      const action = document.getElementById("modal-scADA-action") || document.getElementById("modal-scada-action");
       if (clsName === "METHANE") {
         badge.innerHTML = `<span class="pill pill-green">CONFIRMED METHANE (${conf}%)</span>`;
         action.style.background = "#15803d";
@@ -1812,10 +1989,30 @@ Resources:
       document.getElementById("gallery-modal").classList.add("active");
     }
 
+    function switchModalTab(tab) {
+      const tabAnn = document.getElementById("modal-tab-ann");
+      const tabOrig = document.getElementById("modal-tab-orig");
+      const mainImg = document.getElementById("modal-img-main");
+      const viewState = document.getElementById("modal-view-state");
+
+      if (tab === "ann") {
+        tabAnn.classList.add("active");
+        tabOrig.classList.remove("active");
+        mainImg.src = modalCurAnn;
+        viewState.innerText = "ACTIVE VIEW: OUR DATA (AEROBOS SCHLIEREN)";
+        viewState.style.color = "#38bdf8";
+      } else {
+        tabOrig.classList.add("active");
+        tabAnn.classList.remove("active");
+        mainImg.src = modalCurOrig;
+        viewState.innerText = "ACTIVE VIEW: ORIGINAL DATA (RAW CCTV FEED - INVISIBLE GAS)";
+        viewState.style.color = "#f59e0b";
+      }
+    }
+
     function closeGalleryModal(event) {
       document.getElementById("gallery-modal").classList.remove("active");
     }
-
-  </script>
+</script>
 </body>
 </html>

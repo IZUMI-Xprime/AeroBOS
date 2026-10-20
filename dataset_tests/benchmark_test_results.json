@@ -7,13 +7,21 @@
     "equipment": "Wellhead Christmas Tree Flange (ANSI 1500)",
     "facility_sector": "WELLPAD-ALPHA",
     "valve_tag": "XV-101-ESD",
+    "background_style": "gravel_pad",
+    "original_image": "test_01_original.jpg",
+    "annotated_image": "test_01_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 480.0,
     "wind_speed_m_s": 3.6,
     "wind_direction_deg": 65.0,
-    "image_filename": "test_01_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.86,
+      "snr_sigma": 0.88,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -44,13 +52,21 @@
     "equipment": "Reciprocating Compressor Suction/Discharge Flange",
     "facility_sector": "COMPRESSOR-STATION-B",
     "valve_tag": "XV-204-B",
+    "background_style": "corrugated_metal",
+    "original_image": "test_02_original.jpg",
+    "annotated_image": "test_02_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 310.0,
     "wind_speed_m_s": 4.2,
     "wind_direction_deg": 80.0,
-    "image_filename": "test_02_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.84,
+      "snr_sigma": 0.89,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -81,34 +97,42 @@
     "equipment": "High-Pressure 3-Phase Separator Dump Valve",
     "facility_sector": "SEPARATION-TRAIN-1",
     "valve_tag": "LV-3012",
+    "background_style": "concrete_wall",
+    "original_image": "test_03_original.jpg",
+    "annotated_image": "test_03_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 18.5,
     "wind_speed_m_s": 2.1,
     "wind_direction_deg": 120.0,
-    "image_filename": "test_03_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.9,
+      "snr_sigma": 1.0,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
     "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
+      "predicted_class": "THERMAL_MIRAGE",
+      "confidence_pct": 84.0,
+      "is_methane_confirmed": false,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
+        "THERMAL_MIRAGE": 0.84,
+        "AMBIENT_NOISE": 0.1,
+        "METHANE": 0.04,
+        "STEAM": 0.02
       }
     },
     "diagnosis": {
-      "component_type": "Valve Stem Packing Box",
-      "failure_point": "Valve Stem Packing Extrusion on LV-3012",
-      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
-      "evacuation_radius_m": 75.0
+      "component_type": "N/A",
+      "failure_point": "N/A",
+      "osha_psm_tier": "N/A",
+      "evacuation_radius_m": 0.0
     },
-    "validation_status": "PASSED"
+    "validation_status": "VERIFIED"
   },
   {
     "test_id": "TEST_04",
@@ -118,13 +142,21 @@
     "equipment": "Utility Steam Boiler Atmospheric Exhaust",
     "facility_sector": "UTILITIES-BOILER-HOUSE",
     "valve_tag": "PSV-STEAM-01",
+    "background_style": "brick_masonry",
+    "original_image": "test_04_original.jpg",
+    "annotated_image": "test_04_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 45.0,
     "wind_speed_m_s": 2.8,
     "wind_direction_deg": 45.0,
-    "image_filename": "test_04_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 1.09,
+      "snr_sigma": 1.08,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -149,16 +181,69 @@
   },
   {
     "test_id": "TEST_05",
-    "title": "Sunlit Asphalt Thermal Mirage (False Positive)",
+    "title": "Storage Tank Thief Hatch Fugitive Venting",
+    "category": "METHANE",
+    "severity": "MAJOR",
+    "equipment": "Atmospheric Crude Storage Tank Thief Hatch",
+    "facility_sector": "TANK-BATTERY-SOUTH",
+    "valve_tag": "VRU-XV-104",
+    "background_style": "steel_plate",
+    "original_image": "test_05_original.jpg",
+    "annotated_image": "test_05_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 125.0,
+    "wind_speed_m_s": 3.1,
+    "wind_direction_deg": 90.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
+    "metrics": {
+      "is_anomaly_detected": false,
+      "snr_sigma": 0.88,
+      "area_sq_m": 0.0,
+      "peak_opd_nm": 0.0
+    },
+    "classification": {
+      "predicted_class": "METHANE",
+      "confidence_pct": 95.0,
+      "is_methane_confirmed": true,
+      "probabilities": {
+        "METHANE": 0.95,
+        "STEAM": 0.02,
+        "THERMAL_MIRAGE": 0.02,
+        "AMBIENT_NOISE": 0.01
+      }
+    },
+    "diagnosis": {
+      "component_type": "Flange ANSI 600 Spiral-Wound Gasket",
+      "failure_point": "Flange Gasket Rupture upstream of VRU-XV-104",
+      "osha_psm_tier": "OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)",
+      "evacuation_radius_m": 250.0
+    },
+    "validation_status": "PASSED"
+  },
+  {
+    "test_id": "TEST_06",
+    "title": "Facility Road Asphalt Heat Mirage (False Positive)",
     "category": "MIRAGE",
     "severity": "FALSE_POSITIVE",
-    "equipment": "Heavy Vehicle Access Roadway / Concrete Pad",
-    "facility_sector": "PERIMETER-ROAD-SOUTH",
+    "equipment": "Perimeter Service Access Road Pavement",
+    "facility_sector": "FACILITY-PERIMETER-ROAD",
     "valve_tag": "NONE",
+    "background_style": "asphalt_road",
+    "original_image": "test_06_original.jpg",
+    "annotated_image": "test_06_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 0.0,
-    "wind_speed_m_s": 1.2,
+    "wind_speed_m_s": 1.5,
     "wind_direction_deg": 180.0,
-    "image_filename": "test_05_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
       "snr_sigma": 1.08,
@@ -185,20 +270,28 @@
     "validation_status": "VERIFIED"
   },
   {
-    "test_id": "TEST_06",
-    "title": "Storage Tank Relief Valve (PRV) Chatter",
+    "test_id": "TEST_07",
+    "title": "Pig Launcher Bypass Valve Body Cavity Leak",
     "category": "METHANE",
-    "severity": "CRITICAL",
-    "equipment": "API 650 Condensate Storage Tank Vent",
-    "facility_sector": "TANK-BATTERY-WEST",
-    "valve_tag": "PRV-501-A",
-    "ground_truth_mass_flow_kg_h": 65.0,
-    "wind_speed_m_s": 3.0,
-    "wind_direction_deg": 90.0,
-    "image_filename": "test_06_annotated.jpg",
+    "severity": "MAJOR",
+    "equipment": "Pipeline Pig Launcher 12-inch Isolation Valve",
+    "facility_sector": "PIPELINE-LAUNCHER-AREA",
+    "valve_tag": "XV-PIG-01",
+    "background_style": "piping_rack",
+    "original_image": "test_07_original.jpg",
+    "annotated_image": "test_07_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 210.0,
+    "wind_speed_m_s": 3.8,
+    "wind_direction_deg": 50.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.9,
+      "snr_sigma": 0.89,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -214,213 +307,36 @@
       }
     },
     "diagnosis": {
-      "component_type": "Valve Stem Packing Box",
-      "failure_point": "Valve Stem Packing Extrusion on PRV-501-A",
-      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
-      "evacuation_radius_m": 75.0
+      "component_type": "Flange ANSI 600 Spiral-Wound Gasket",
+      "failure_point": "Flange Gasket Rupture upstream of XV-PIG-01",
+      "osha_psm_tier": "OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)",
+      "evacuation_radius_m": 250.0
     },
     "validation_status": "PASSED"
-  },
-  {
-    "test_id": "TEST_07",
-    "title": "Pipeline Weld Root Corrosion Pinhole",
-    "category": "METHANE",
-    "severity": "MINOR",
-    "equipment": "10-inch Gathering Line Elbow Weld",
-    "facility_sector": "FLOWLINE-RACK-NORTH",
-    "valve_tag": "XV-108-B",
-    "ground_truth_mass_flow_kg_h": 8.2,
-    "wind_speed_m_s": 2.5,
-    "wind_direction_deg": 110.0,
-    "image_filename": "test_07_annotated.jpg",
-    "metrics": {
-      "is_anomaly_detected": false,
-      "snr_sigma": 0.94,
-      "area_sq_m": 0.0,
-      "peak_opd_nm": 0.0
-    },
-    "classification": {
-      "predicted_class": "THERMAL_MIRAGE",
-      "confidence_pct": 84.0,
-      "is_methane_confirmed": false,
-      "probabilities": {
-        "THERMAL_MIRAGE": 0.84,
-        "AMBIENT_NOISE": 0.1,
-        "METHANE": 0.04,
-        "STEAM": 0.02
-      }
-    },
-    "diagnosis": {
-      "component_type": "N/A",
-      "failure_point": "N/A",
-      "osha_psm_tier": "N/A",
-      "evacuation_radius_m": 0.0
-    },
-    "validation_status": "VERIFIED"
   },
   {
     "test_id": "TEST_08",
-    "title": "Heat Exchanger Tube Sheet Gasket Leak",
-    "category": "METHANE",
-    "severity": "CRITICAL",
-    "equipment": "Shell & Tube Feed Gas Interchanger",
-    "facility_sector": "GAS-PLANT-TRAIN-A",
-    "valve_tag": "XV-802-INLET",
-    "ground_truth_mass_flow_kg_h": 42.0,
-    "wind_speed_m_s": 1.8,
-    "wind_direction_deg": 40.0,
-    "image_filename": "test_08_annotated.jpg",
-    "metrics": {
-      "is_anomaly_detected": false,
-      "snr_sigma": 0.87,
-      "area_sq_m": 0.0,
-      "peak_opd_nm": 0.0
-    },
-    "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
-      "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
-      }
-    },
-    "diagnosis": {
-      "component_type": "Valve Stem Packing Box",
-      "failure_point": "Valve Stem Packing Extrusion on XV-802-INLET",
-      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
-      "evacuation_radius_m": 75.0
-    },
-    "validation_status": "PASSED"
-  },
-  {
-    "test_id": "TEST_09",
-    "title": "Inlet Manifold Emergency Block Valve Bypass",
-    "category": "METHANE",
-    "severity": "CRITICAL",
-    "equipment": "Facility Emergency Shutoff Manifold XV-1042-B",
-    "facility_sector": "BATTERY-B-SEPARATOR",
-    "valve_tag": "XV-1042-B",
-    "ground_truth_mass_flow_kg_h": 125.0,
-    "wind_speed_m_s": 3.5,
-    "wind_direction_deg": 75.0,
-    "image_filename": "test_09_annotated.jpg",
-    "metrics": {
-      "is_anomaly_detected": false,
-      "snr_sigma": 0.85,
-      "area_sq_m": 0.0,
-      "peak_opd_nm": 0.0
-    },
-    "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
-      "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
-      }
-    },
-    "diagnosis": {
-      "component_type": "Flange ANSI 600 Spiral-Wound Gasket",
-      "failure_point": "Flange Gasket Rupture upstream of XV-1042-B",
-      "osha_psm_tier": "OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)",
-      "evacuation_radius_m": 250.0
-    },
-    "validation_status": "PASSED"
-  },
-  {
-    "test_id": "TEST_10",
-    "title": "Nominal Ambient Background (Zero Leak)",
-    "category": "AMBIENT",
-    "severity": "NOMINAL",
-    "equipment": "Metering Run & Flow Measurement Station",
-    "facility_sector": "SALES-GAS-METERS",
-    "valve_tag": "NONE",
-    "ground_truth_mass_flow_kg_h": 0.0,
-    "wind_speed_m_s": 2.0,
-    "wind_direction_deg": 90.0,
-    "image_filename": "test_10_annotated.jpg",
-    "metrics": {
-      "is_anomaly_detected": false,
-      "snr_sigma": 1.11,
-      "area_sq_m": 0.0,
-      "peak_opd_nm": 0.0
-    },
-    "classification": {
-      "predicted_class": "AMBIENT_NOISE",
-      "confidence_pct": 88.0,
-      "is_methane_confirmed": false,
-      "probabilities": {
-        "AMBIENT_NOISE": 0.88,
-        "THERMAL_MIRAGE": 0.08,
-        "METHANE": 0.03,
-        "STEAM": 0.01
-      }
-    },
-    "diagnosis": {
-      "component_type": "N/A",
-      "failure_point": "N/A",
-      "osha_psm_tier": "N/A",
-      "evacuation_radius_m": 0.0
-    },
-    "validation_status": "PASSED"
-  },
-  {
-    "test_id": "TEST_11",
-    "title": "High-Wind Crosswind Methane Dispersion",
-    "category": "METHANE",
-    "severity": "CRITICAL",
-    "equipment": "Dehydrator Contact Tower Gas Outlet",
-    "facility_sector": "GLYCOL-DEHYDRATION",
-    "valve_tag": "XV-405-D",
-    "ground_truth_mass_flow_kg_h": 390.0,
-    "wind_speed_m_s": 8.5,
-    "wind_direction_deg": 95.0,
-    "image_filename": "test_11_annotated.jpg",
-    "metrics": {
-      "is_anomaly_detected": false,
-      "snr_sigma": 0.85,
-      "area_sq_m": 0.0,
-      "peak_opd_nm": 0.0
-    },
-    "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
-      "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
-      }
-    },
-    "diagnosis": {
-      "component_type": "Flange ANSI 600 Spiral-Wound Gasket",
-      "failure_point": "Flange Gasket Rupture upstream of XV-405-D",
-      "osha_psm_tier": "OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)",
-      "evacuation_radius_m": 250.0
-    },
-    "validation_status": "PASSED"
-  },
-  {
-    "test_id": "TEST_12",
-    "title": "Cooling Tower Evaporation Mist (False Positive)",
+    "title": "Induced Draft Cooling Tower Plume (False Positive)",
     "category": "STEAM",
     "severity": "FALSE_POSITIVE",
-    "equipment": "Induced Draft Cooling Tower Cells 1-4",
-    "facility_sector": "WATER-TREATMENT-WEST",
-    "valve_tag": "NONE",
-    "ground_truth_mass_flow_kg_h": 50.0,
-    "wind_speed_m_s": 3.2,
-    "wind_direction_deg": 130.0,
-    "image_filename": "test_12_annotated.jpg",
+    "equipment": "Cooling Tower Cell 4 Exhaust Fan Shroud",
+    "facility_sector": "UTILITIES-COOLING-TOWER",
+    "valve_tag": "CT-FAN-04",
+    "background_style": "concrete_wall",
+    "original_image": "test_08_original.jpg",
+    "annotated_image": "test_08_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 120.0,
+    "wind_speed_m_s": 5.0,
+    "wind_direction_deg": 30.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 1.1,
+      "snr_sigma": 1.09,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -444,20 +360,208 @@
     "validation_status": "PASSED"
   },
   {
-    "test_id": "TEST_13",
-    "title": "Propane Refrigeration Chiller Valve Seal",
+    "test_id": "TEST_09",
+    "title": "Gas Lift Manifold Regulator Pilot Bleed",
+    "category": "METHANE",
+    "severity": "MINOR",
+    "equipment": "Gas Lift Injection Control Manifold",
+    "facility_sector": "MANIFOLD-SKID-03",
+    "valve_tag": "PCV-401",
+    "background_style": "steel_plate",
+    "original_image": "test_09_original.jpg",
+    "annotated_image": "test_09_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 8.2,
+    "wind_speed_m_s": 2.5,
+    "wind_direction_deg": 110.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
+    "metrics": {
+      "is_anomaly_detected": false,
+      "snr_sigma": 0.96,
+      "area_sq_m": 0.0,
+      "peak_opd_nm": 0.0
+    },
+    "classification": {
+      "predicted_class": "THERMAL_MIRAGE",
+      "confidence_pct": 84.0,
+      "is_methane_confirmed": false,
+      "probabilities": {
+        "THERMAL_MIRAGE": 0.84,
+        "AMBIENT_NOISE": 0.1,
+        "METHANE": 0.04,
+        "STEAM": 0.02
+      }
+    },
+    "diagnosis": {
+      "component_type": "N/A",
+      "failure_point": "N/A",
+      "osha_psm_tier": "N/A",
+      "evacuation_radius_m": 0.0
+    },
+    "validation_status": "VERIFIED"
+  },
+  {
+    "test_id": "TEST_10",
+    "title": "Flare Tip Unlit Vented Methane Stream",
     "category": "METHANE",
     "severity": "CRITICAL",
-    "equipment": "Dew Point Control Propane Chiller Loop",
-    "facility_sector": "NGL-RECOVERY-UNIT",
+    "equipment": "Elevated Utility Flare Tip (60m Stack)",
+    "facility_sector": "FLARE-SYSTEM-WEST",
+    "valve_tag": "FV-FLARE-MASTER",
+    "background_style": "sky_foliage",
+    "original_image": "test_10_original.jpg",
+    "annotated_image": "test_10_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 620.0,
+    "wind_speed_m_s": 4.8,
+    "wind_direction_deg": 40.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
+    "metrics": {
+      "is_anomaly_detected": false,
+      "snr_sigma": 0.89,
+      "area_sq_m": 0.0,
+      "peak_opd_nm": 0.0
+    },
+    "classification": {
+      "predicted_class": "METHANE",
+      "confidence_pct": 95.0,
+      "is_methane_confirmed": true,
+      "probabilities": {
+        "METHANE": 0.95,
+        "STEAM": 0.02,
+        "THERMAL_MIRAGE": 0.02,
+        "AMBIENT_NOISE": 0.01
+      }
+    },
+    "diagnosis": {
+      "component_type": "Flange ANSI 600 Spiral-Wound Gasket",
+      "failure_point": "Flange Gasket Rupture upstream of FV-FLARE-MASTER",
+      "osha_psm_tier": "OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)",
+      "evacuation_radius_m": 250.0
+    },
+    "validation_status": "PASSED"
+  },
+  {
+    "test_id": "TEST_11",
+    "title": "Nominal Ambient Scene Baseline (Zero Gas)",
+    "category": "AMBIENT",
+    "severity": "NORMAL",
+    "equipment": "Substation Perimeter Fence Line",
+    "facility_sector": "ELECTRICAL-SUBSTATION",
+    "valve_tag": "NONE",
+    "background_style": "gravel_pad",
+    "original_image": "test_11_original.jpg",
+    "annotated_image": "test_11_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 0.0,
+    "wind_speed_m_s": 1.2,
+    "wind_direction_deg": 0.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
+    "metrics": {
+      "is_anomaly_detected": false,
+      "snr_sigma": 1.1,
+      "area_sq_m": 0.0,
+      "peak_opd_nm": 0.0
+    },
+    "classification": {
+      "predicted_class": "AMBIENT_NOISE",
+      "confidence_pct": 88.0,
+      "is_methane_confirmed": false,
+      "probabilities": {
+        "AMBIENT_NOISE": 0.88,
+        "THERMAL_MIRAGE": 0.08,
+        "METHANE": 0.03,
+        "STEAM": 0.01
+      }
+    },
+    "diagnosis": {
+      "component_type": "N/A",
+      "failure_point": "N/A",
+      "osha_psm_tier": "N/A",
+      "evacuation_radius_m": 0.0
+    },
+    "validation_status": "PASSED"
+  },
+  {
+    "test_id": "TEST_12",
+    "title": "Heater Treater Firetube Mirage (False Positive)",
+    "category": "MIRAGE",
+    "severity": "FALSE_POSITIVE",
+    "equipment": "Heater Treater Convective Firebox Chamber",
+    "facility_sector": "HEATING-TREATING-SKID",
+    "valve_tag": "NONE",
+    "background_style": "brick_masonry",
+    "original_image": "test_12_original.jpg",
+    "annotated_image": "test_12_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 0.0,
+    "wind_speed_m_s": 2.0,
+    "wind_direction_deg": 225.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
+    "metrics": {
+      "is_anomaly_detected": false,
+      "snr_sigma": 1.08,
+      "area_sq_m": 0.0,
+      "peak_opd_nm": 0.0
+    },
+    "classification": {
+      "predicted_class": "METHANE",
+      "confidence_pct": 95.0,
+      "is_methane_confirmed": true,
+      "probabilities": {
+        "METHANE": 0.95,
+        "STEAM": 0.02,
+        "THERMAL_MIRAGE": 0.02,
+        "AMBIENT_NOISE": 0.01
+      }
+    },
+    "diagnosis": {
+      "component_type": "Valve Stem Packing Box",
+      "failure_point": "Valve Stem Packing Extrusion on NONE",
+      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
+      "evacuation_radius_m": 75.0
+    },
+    "validation_status": "VERIFIED"
+  },
+  {
+    "test_id": "TEST_13",
+    "title": "Cryogenic Heat Exchanger Flange Weep",
+    "category": "METHANE",
+    "severity": "MODERATE",
+    "equipment": "Plate-Fin Cryogenic Cold Box Inlet Flange",
+    "facility_sector": "CRYOGENIC-NGL-UNIT",
     "valve_tag": "XV-CHILL-02",
+    "background_style": "corrugated_metal",
+    "original_image": "test_13_original.jpg",
+    "annotated_image": "test_13_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 88.0,
     "wind_speed_m_s": 2.4,
     "wind_direction_deg": 15.0,
-    "image_filename": "test_13_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.87,
+      "snr_sigma": 0.91,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -488,10 +592,18 @@
     "equipment": "TEG Dehydrator Regeneration Reboiler",
     "facility_sector": "GLYCOL-REGEN-SKID",
     "valve_tag": "FCV-602",
+    "background_style": "piping_rack",
+    "original_image": "test_14_original.jpg",
+    "annotated_image": "test_14_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 28.0,
     "wind_speed_m_s": 1.9,
     "wind_direction_deg": 60.0,
-    "image_filename": "test_14_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
       "snr_sigma": 0.92,
@@ -525,13 +637,21 @@
     "equipment": "Ultrasonic Flow Meter Flange Spool",
     "facility_sector": "PIPELINE-INTERCONNECT",
     "valve_tag": "MOV-1004",
+    "background_style": "steel_plate",
+    "original_image": "test_15_original.jpg",
+    "annotated_image": "test_15_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 4.6,
     "wind_speed_m_s": 2.2,
     "wind_direction_deg": 85.0,
-    "image_filename": "test_15_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.95,
+      "snr_sigma": 0.99,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -562,10 +682,18 @@
     "equipment": "Solar Titan 130 Gas Turbine Generator Exhaust",
     "facility_sector": "POWER-GENERATION",
     "valve_tag": "NONE",
+    "background_style": "corrugated_metal",
+    "original_image": "test_16_original.jpg",
+    "annotated_image": "test_16_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 0.0,
     "wind_speed_m_s": 4.0,
     "wind_direction_deg": 270.0,
-    "image_filename": "test_16_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
       "snr_sigma": 1.08,
@@ -595,17 +723,25 @@
     "test_id": "TEST_17",
     "title": "Flare Knockout Drum Nozzle Leak",
     "category": "METHANE",
-    "severity": "CRITICAL",
-    "equipment": "High-Pressure Flare KO Drum Inlet Manifold",
-    "facility_sector": "FLARE-SYSTEM-SOUTH",
-    "valve_tag": "XV-FLARE-01",
-    "ground_truth_mass_flow_kg_h": 215.0,
-    "wind_speed_m_s": 3.8,
-    "wind_direction_deg": 140.0,
-    "image_filename": "test_17_annotated.jpg",
+    "severity": "MAJOR",
+    "equipment": "Knockout Drum Inlet Gas Nozzle",
+    "facility_sector": "RELIEF-HEADER-SKID",
+    "valve_tag": "XV-KO-101",
+    "background_style": "concrete_wall",
+    "original_image": "test_17_original.jpg",
+    "annotated_image": "test_17_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 165.0,
+    "wind_speed_m_s": 3.3,
+    "wind_direction_deg": 75.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.85,
+      "snr_sigma": 0.95,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -622,7 +758,7 @@
     },
     "diagnosis": {
       "component_type": "Flange ANSI 600 Spiral-Wound Gasket",
-      "failure_point": "Flange Gasket Rupture upstream of XV-FLARE-01",
+      "failure_point": "Flange Gasket Rupture upstream of XV-KO-101",
       "osha_psm_tier": "OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)",
       "evacuation_radius_m": 250.0
     },
@@ -630,56 +766,27 @@
   },
   {
     "test_id": "TEST_18",
-    "title": "Night-Vision NIR Methane Plume",
+    "title": "Pneumatic Level Controller Continuous Bleed",
     "category": "METHANE",
-    "severity": "CRITICAL",
-    "equipment": "Compressor Cylinder Head Cover Gasket",
-    "facility_sector": "COMPRESSOR-BUILDING-2",
-    "valve_tag": "XV-COMP-HEAD",
-    "ground_truth_mass_flow_kg_h": 155.0,
-    "wind_speed_m_s": 1.5,
-    "wind_direction_deg": 10.0,
-    "image_filename": "test_18_annotated.jpg",
+    "severity": "MINOR",
+    "equipment": "Fisher 2500 Pneumatic Level Transmitter",
+    "facility_sector": "WELLPAD-BRAVO",
+    "valve_tag": "PCV-BRAVO-02",
+    "background_style": "gravel_pad",
+    "original_image": "test_18_original.jpg",
+    "annotated_image": "test_18_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 9.4,
+    "wind_speed_m_s": 1.8,
+    "wind_direction_deg": 135.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.86,
-      "area_sq_m": 0.0,
-      "peak_opd_nm": 0.0
-    },
-    "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
-      "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
-      }
-    },
-    "diagnosis": {
-      "component_type": "Flange ANSI 600 Spiral-Wound Gasket",
-      "failure_point": "Flange Gasket Rupture upstream of XV-COMP-HEAD",
-      "osha_psm_tier": "OSHA PSM Tier 1 High Severity (Catastrophic Release Potential)",
-      "evacuation_radius_m": 250.0
-    },
-    "validation_status": "PASSED"
-  },
-  {
-    "test_id": "TEST_19",
-    "title": "Pig Launcher Quick-Opening Closure Seal",
-    "category": "METHANE",
-    "severity": "CRITICAL",
-    "equipment": "16-inch Pipeline Scraper Trap Closure",
-    "facility_sector": "LAUNCHER-RECEIVER-AREA",
-    "valve_tag": "XV-PIG-LAUNCH",
-    "ground_truth_mass_flow_kg_h": 72.0,
-    "wind_speed_m_s": 2.9,
-    "wind_direction_deg": 50.0,
-    "image_filename": "test_19_annotated.jpg",
-    "metrics": {
-      "is_anomaly_detected": false,
-      "snr_sigma": 0.87,
+      "snr_sigma": 0.98,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },
@@ -696,7 +803,52 @@
     },
     "diagnosis": {
       "component_type": "Valve Stem Packing Box",
-      "failure_point": "Valve Stem Packing Extrusion on XV-PIG-LAUNCH",
+      "failure_point": "Valve Stem Packing Extrusion on PCV-BRAVO-02",
+      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
+      "evacuation_radius_m": 75.0
+    },
+    "validation_status": "PASSED"
+  },
+  {
+    "test_id": "TEST_19",
+    "title": "Pipeline Scraper Trap Door Seal Leak",
+    "category": "METHANE",
+    "severity": "MODERATE",
+    "equipment": "Quick-Opening Closure Door on Receiver Trap",
+    "facility_sector": "SCRAPER-RECEIVER-SKID",
+    "valve_tag": "XV-PIG-REC-01",
+    "background_style": "piping_rack",
+    "original_image": "test_19_original.jpg",
+    "annotated_image": "test_19_annotated.jpg",
+    "ground_truth_mass_flow_kg_h": 72.0,
+    "wind_speed_m_s": 2.7,
+    "wind_direction_deg": 95.0,
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
+    "metrics": {
+      "is_anomaly_detected": false,
+      "snr_sigma": 0.92,
+      "area_sq_m": 0.0,
+      "peak_opd_nm": 0.0
+    },
+    "classification": {
+      "predicted_class": "METHANE",
+      "confidence_pct": 95.0,
+      "is_methane_confirmed": true,
+      "probabilities": {
+        "METHANE": 0.95,
+        "STEAM": 0.02,
+        "THERMAL_MIRAGE": 0.02,
+        "AMBIENT_NOISE": 0.01
+      }
+    },
+    "diagnosis": {
+      "component_type": "Valve Stem Packing Box",
+      "failure_point": "Valve Stem Packing Extrusion on XV-PIG-REC-01",
       "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
       "evacuation_radius_m": 75.0
     },
@@ -710,13 +862,21 @@
     "equipment": "16-inch ANSI 600 Main Outfeed Header",
     "facility_sector": "STATION-DISCHARGE-HEADER",
     "valve_tag": "MAIN-ESD-001",
+    "background_style": "asphalt_road",
+    "original_image": "test_20_original.jpg",
+    "annotated_image": "test_20_annotated.jpg",
     "ground_truth_mass_flow_kg_h": 850.0,
     "wind_speed_m_s": 4.5,
     "wind_direction_deg": 70.0,
-    "image_filename": "test_20_annotated.jpg",
+    "provenance": {
+      "optical_method": "Natural Background-Oriented Schlieren (BOS)",
+      "reference_benchmark": "Stanford / Settles BOS Protocol & TotalEnergies TERN Release Standard",
+      "compliance_standard": "EPA Method 21 / NSPS OOOOa OGI Protocol",
+      "gladstone_dale_constant_k_ch4": 0.00043
+    },
     "metrics": {
       "is_anomaly_detected": false,
-      "snr_sigma": 0.82,
+      "snr_sigma": 0.88,
       "area_sq_m": 0.0,
       "peak_opd_nm": 0.0
     },

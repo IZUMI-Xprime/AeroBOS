@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import math
 import time
-from typing import Tuple
+from typing import Optional, Tuple
 
 import cv2
 import numpy as np
@@ -30,14 +30,18 @@ class SyntheticSchlierenGenerator:
         width: int = 1920,
         height: int = 1080,
         fps: float = 30.0,
+        background_texture: Optional[np.ndarray] = None,
     ) -> None:
         self.width = width
         self.height = height
         self.fps = fps
         self.frame_idx = 0
 
-        # Generate realistic textured background (gravel / concrete pattern)
-        self.background_texture = self._generate_textured_background(width, height)
+        # Use custom background or generate realistic textured background (gravel / concrete pattern)
+        if background_texture is not None:
+            self.background_texture = background_texture
+        else:
+            self.background_texture = self._generate_textured_background(width, height)
 
         # Coordinate meshgrid for sub-pixel ray warping (cv2.remap)
         x = np.arange(width, dtype=np.float32)

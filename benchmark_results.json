@@ -1,0 +1,182 @@
+{
+  "timestamp_epoch": 1792512413.734745,
+  "platform": {
+    "os": "Windows",
+    "arch": "AMD64",
+    "python": "3.11.9",
+    "opencv": "5.0.0"
+  },
+  "cool_cmake_config": "# ============================================================================\n# Cloud-Optimized OpenCV Library (COOL) CMake Directives for AWS Graviton\n# ============================================================================\ncmake -D CMAKE_BUILD_TYPE=Release \\\n      -D CMAKE_C_FLAGS=\"-march=armv8.4-a+sve+dotprod -O3 -fopenmp\" \\\n      -D CMAKE_CXX_FLAGS=\"-march=armv8.4-a+sve+dotprod -O3 -fopenmp\" \\\n      -D ENABLE_NEON=ON \\\n      -D ENABLE_SVE=ON \\\n      -D CV_ENABLE_INTRINSICS=ON \\\n      -D WITH_OPENMP=ON \\\n      -D WITH_TBB=OFF \\\n      -D WITH_FFMPEG=ON \\\n      -D WITH_IPP=OFF \\\n      -D BUILD_opencv_python3=ON \\\n      -D OPENCV_GENERATE_PKGCONFIG=ON ..",
+  "benchmarks": {
+    "1080p": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "mean_latency_ms": 446.33182999968994,
+      "throughput_fps": 1.1238334931445049,
+      "stage_breakdown": {
+        "preprocess": {
+          "mean_ms": 68.00951000077475,
+          "p50_ms": 69.29700000182493,
+          "p95_ms": 77.44836000074429,
+          "p99_ms": 79.70527200177457,
+          "min_ms": 59.51039999854402,
+          "max_ms": 80.26950000203215
+        },
+        "optical_flow": {
+          "mean_ms": 218.38211999966006,
+          "p50_ms": 216.29534999919997,
+          "p95_ms": 230.38001000059012,
+          "p99_ms": 233.87208200198074,
+          "min_ms": 207.49230000001262,
+          "max_ms": 234.7451000023284
+        },
+        "divergence": {
+          "mean_ms": 22.550869999759016,
+          "p50_ms": 22.523800002090866,
+          "p95_ms": 24.143419999199978,
+          "p99_ms": 24.24076400046033,
+          "min_ms": 20.977399999537738,
+          "max_ms": 24.26510000077542
+        },
+        "poisson_solve": {
+          "mean_ms": 55.53317000048992,
+          "p50_ms": 56.09820000063337,
+          "p95_ms": 58.5592950010323,
+          "p99_ms": 58.80225900182268,
+          "min_ms": 49.00130000169156,
+          "max_ms": 58.86300000202027
+        },
+        "temporal_filter": {
+          "mean_ms": 42.81590000027791,
+          "p50_ms": 42.99224999886064,
+          "p95_ms": 46.346715002073324,
+          "p99_ms": 47.05422300139617,
+          "min_ms": 37.55269999965094,
+          "max_ms": 47.23110000122688
+        }
+      }
+    },
+    "4k": {
+      "dimensions": [
+        3840,
+        2160
+      ],
+      "mean_latency_ms": 467.7361599991855,
+      "throughput_fps": 0.45504617080472726,
+      "stage_breakdown": {
+        "preprocess": {
+          "mean_ms": 100.76991999958409,
+          "p50_ms": 99.84110000004875,
+          "p95_ms": 113.40117999789072,
+          "p99_ms": 115.85663599747932,
+          "min_ms": 87.68390000113868,
+          "max_ms": 116.47049999737646
+        },
+        "optical_flow": {
+          "mean_ms": 215.2381800005969,
+          "p50_ms": 210.21860000109882,
+          "p95_ms": 229.60170000151265,
+          "p99_ms": 229.81658000149764,
+          "min_ms": 202.0842999991146,
+          "max_ms": 229.8703000014939
+        },
+        "divergence": {
+          "mean_ms": 22.82889999987674,
+          "p50_ms": 20.488800000748597,
+          "p95_ms": 26.84011999881477,
+          "p99_ms": 26.868343998939963,
+          "min_ms": 19.828899999993155,
+          "max_ms": 26.87539999897126
+        },
+        "poisson_solve": {
+          "mean_ms": 50.94037999951979,
+          "p50_ms": 48.64889999953448,
+          "p95_ms": 59.09752000079607,
+          "p99_ms": 59.61430400158861,
+          "min_ms": 44.44520000106422,
+          "max_ms": 59.74350000178674
+        },
+        "temporal_filter": {
+          "mean_ms": 40.09315999937826,
+          "p50_ms": 37.009799998486415,
+          "p95_ms": 46.97441999960574,
+          "p99_ms": 47.21208399962052,
+          "min_ms": 34.74619999906281,
+          "max_ms": 47.27149999962421
+        }
+      }
+    }
+  },
+  "graviton_tco_comparison": {
+    "comparison_table": [
+      {
+        "instance": "c7g.2xlarge",
+        "architecture": "Arm64 (AWS Graviton3, Neoverse V1, 256-bit SVE)",
+        "hourly_usd": 0.289,
+        "monthly_usd": 210.97,
+        "est_1080p_fps": 1.5,
+        "est_4k_fps": 0.6,
+        "concurrent_30fps_streams": 1,
+        "monthly_cost_per_camera_usd": 210.97,
+        "savings_vs_x86_pct": 19.0
+      },
+      {
+        "instance": "c8g.2xlarge",
+        "architecture": "Arm64 (AWS Graviton4, Neoverse V2, 4x128-bit SVE2)",
+        "hourly_usd": 0.312,
+        "monthly_usd": 227.76,
+        "est_1080p_fps": 1.8,
+        "est_4k_fps": 0.7,
+        "concurrent_30fps_streams": 1,
+        "monthly_cost_per_camera_usd": 227.76,
+        "savings_vs_x86_pct": 12.6
+      },
+      {
+        "instance": "c7i.2xlarge",
+        "architecture": "x86_64 (Intel Xeon Platinum 8488C Sapphire Rapids)",
+        "hourly_usd": 0.357,
+        "monthly_usd": 260.61,
+        "est_1080p_fps": 1.1,
+        "est_4k_fps": 0.5,
+        "concurrent_30fps_streams": 1,
+        "monthly_cost_per_camera_usd": 260.61,
+        "savings_vs_x86_pct": 0.0
+      },
+      {
+        "instance": "c6i.2xlarge",
+        "architecture": "x86_64 (Intel Xeon Ice Lake 8375C)",
+        "hourly_usd": 0.34,
+        "monthly_usd": 248.2,
+        "est_1080p_fps": 1.1,
+        "est_4k_fps": 0.5,
+        "concurrent_30fps_streams": 1,
+        "monthly_cost_per_camera_usd": 248.2,
+        "savings_vs_x86_pct": 0.0
+      }
+    ],
+    "fleet_monitoring_costs_monthly": {
+      "1_cameras": {
+        "aws_graviton3_c7g": 28.9,
+        "intel_c7i": 65.15,
+        "annual_savings_usd": 435.0
+      },
+      "10_cameras": {
+        "aws_graviton3_c7g": 289.0,
+        "intel_c7i": 651.5,
+        "annual_savings_usd": 4350.0
+      },
+      "50_cameras": {
+        "aws_graviton3_c7g": 1445.0,
+        "intel_c7i": 3257.5,
+        "annual_savings_usd": 21750.0
+      },
+      "100_cameras": {
+        "aws_graviton3_c7g": 2890.0,
+        "intel_c7i": 6515.0,
+        "annual_savings_usd": 43500.0
+      }
+    }
+  }
+}

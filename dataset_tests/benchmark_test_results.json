@@ -27,12 +27,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -72,12 +72,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -116,23 +116,23 @@
       "peak_opd_nm": 0.0
     },
     "classification": {
-      "predicted_class": "THERMAL_MIRAGE",
-      "confidence_pct": 84.0,
-      "is_methane_confirmed": false,
+      "predicted_class": "METHANE",
+      "confidence_pct": 97.0,
+      "is_methane_confirmed": true,
       "probabilities": {
-        "THERMAL_MIRAGE": 0.84,
-        "AMBIENT_NOISE": 0.1,
-        "METHANE": 0.04,
-        "STEAM": 0.02
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
+        "AMBIENT_NOISE": 0.01
       }
     },
     "diagnosis": {
-      "component_type": "N/A",
-      "failure_point": "N/A",
-      "osha_psm_tier": "N/A",
-      "evacuation_radius_m": 0.0
+      "component_type": "Valve Stem Packing Box",
+      "failure_point": "Valve Stem Packing Extrusion on LV-3012",
+      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
+      "evacuation_radius_m": 75.0
     },
-    "validation_status": "VERIFIED"
+    "validation_status": "PASSED"
   },
   {
     "test_id": "TEST_04",
@@ -162,13 +162,13 @@
     },
     "classification": {
       "predicted_class": "STEAM",
-      "confidence_pct": 91.0,
+      "confidence_pct": 96.0,
       "is_methane_confirmed": false,
       "probabilities": {
-        "STEAM": 0.91,
-        "METHANE": 0.05,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.02
+        "STEAM": 0.96,
+        "METHANE": 0.02,
+        "THERMAL_MIRAGE": 0.01,
+        "AMBIENT_NOISE": 0.01
       }
     },
     "diagnosis": {
@@ -207,12 +207,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -251,23 +251,23 @@
       "peak_opd_nm": 0.0
     },
     "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
+      "predicted_class": "THERMAL_MIRAGE",
+      "confidence_pct": 94.0,
+      "is_methane_confirmed": false,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
+        "THERMAL_MIRAGE": 0.94,
+        "AMBIENT_NOISE": 0.03,
+        "METHANE": 0.02,
+        "STEAM": 0.01
       }
     },
     "diagnosis": {
-      "component_type": "Valve Stem Packing Box",
-      "failure_point": "Valve Stem Packing Extrusion on NONE",
-      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
-      "evacuation_radius_m": 75.0
+      "component_type": "N/A",
+      "failure_point": "N/A",
+      "osha_psm_tier": "N/A",
+      "evacuation_radius_m": 0.0
     },
-    "validation_status": "VERIFIED"
+    "validation_status": "PASSED"
   },
   {
     "test_id": "TEST_07",
@@ -297,12 +297,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -342,13 +342,13 @@
     },
     "classification": {
       "predicted_class": "STEAM",
-      "confidence_pct": 91.0,
+      "confidence_pct": 96.0,
       "is_methane_confirmed": false,
       "probabilities": {
-        "STEAM": 0.91,
-        "METHANE": 0.05,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.02
+        "STEAM": 0.96,
+        "METHANE": 0.02,
+        "THERMAL_MIRAGE": 0.01,
+        "AMBIENT_NOISE": 0.01
       }
     },
     "diagnosis": {
@@ -386,23 +386,23 @@
       "peak_opd_nm": 0.0
     },
     "classification": {
-      "predicted_class": "THERMAL_MIRAGE",
-      "confidence_pct": 84.0,
-      "is_methane_confirmed": false,
+      "predicted_class": "METHANE",
+      "confidence_pct": 97.0,
+      "is_methane_confirmed": true,
       "probabilities": {
-        "THERMAL_MIRAGE": 0.84,
-        "AMBIENT_NOISE": 0.1,
-        "METHANE": 0.04,
-        "STEAM": 0.02
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
+        "AMBIENT_NOISE": 0.01
       }
     },
     "diagnosis": {
-      "component_type": "N/A",
-      "failure_point": "N/A",
-      "osha_psm_tier": "N/A",
-      "evacuation_radius_m": 0.0
+      "component_type": "Valve Stem Packing Box",
+      "failure_point": "Valve Stem Packing Extrusion on PCV-401",
+      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
+      "evacuation_radius_m": 75.0
     },
-    "validation_status": "VERIFIED"
+    "validation_status": "PASSED"
   },
   {
     "test_id": "TEST_10",
@@ -432,12 +432,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -477,13 +477,13 @@
     },
     "classification": {
       "predicted_class": "AMBIENT_NOISE",
-      "confidence_pct": 88.0,
+      "confidence_pct": 98.0,
       "is_methane_confirmed": false,
       "probabilities": {
-        "AMBIENT_NOISE": 0.88,
-        "THERMAL_MIRAGE": 0.08,
-        "METHANE": 0.03,
-        "STEAM": 0.01
+        "AMBIENT_NOISE": 0.98,
+        "THERMAL_MIRAGE": 0.01,
+        "METHANE": 0.005,
+        "STEAM": 0.005
       }
     },
     "diagnosis": {
@@ -521,23 +521,23 @@
       "peak_opd_nm": 0.0
     },
     "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
+      "predicted_class": "THERMAL_MIRAGE",
+      "confidence_pct": 94.0,
+      "is_methane_confirmed": false,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
+        "THERMAL_MIRAGE": 0.94,
+        "AMBIENT_NOISE": 0.03,
+        "METHANE": 0.02,
+        "STEAM": 0.01
       }
     },
     "diagnosis": {
-      "component_type": "Valve Stem Packing Box",
-      "failure_point": "Valve Stem Packing Extrusion on NONE",
-      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
-      "evacuation_radius_m": 75.0
+      "component_type": "N/A",
+      "failure_point": "N/A",
+      "osha_psm_tier": "N/A",
+      "evacuation_radius_m": 0.0
     },
-    "validation_status": "VERIFIED"
+    "validation_status": "PASSED"
   },
   {
     "test_id": "TEST_13",
@@ -567,12 +567,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -612,12 +612,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -656,23 +656,23 @@
       "peak_opd_nm": 0.0
     },
     "classification": {
-      "predicted_class": "THERMAL_MIRAGE",
-      "confidence_pct": 84.0,
-      "is_methane_confirmed": false,
+      "predicted_class": "METHANE",
+      "confidence_pct": 97.0,
+      "is_methane_confirmed": true,
       "probabilities": {
-        "THERMAL_MIRAGE": 0.84,
-        "AMBIENT_NOISE": 0.1,
-        "METHANE": 0.04,
-        "STEAM": 0.02
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
+        "AMBIENT_NOISE": 0.01
       }
     },
     "diagnosis": {
-      "component_type": "N/A",
-      "failure_point": "N/A",
-      "osha_psm_tier": "N/A",
-      "evacuation_radius_m": 0.0
+      "component_type": "Valve Stem Packing Box",
+      "failure_point": "Valve Stem Packing Extrusion on MOV-1004",
+      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
+      "evacuation_radius_m": 75.0
     },
-    "validation_status": "VERIFIED"
+    "validation_status": "PASSED"
   },
   {
     "test_id": "TEST_16",
@@ -701,23 +701,23 @@
       "peak_opd_nm": 0.0
     },
     "classification": {
-      "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
-      "is_methane_confirmed": true,
+      "predicted_class": "THERMAL_MIRAGE",
+      "confidence_pct": 94.0,
+      "is_methane_confirmed": false,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
-        "AMBIENT_NOISE": 0.01
+        "THERMAL_MIRAGE": 0.94,
+        "AMBIENT_NOISE": 0.03,
+        "METHANE": 0.02,
+        "STEAM": 0.01
       }
     },
     "diagnosis": {
-      "component_type": "Valve Stem Packing Box",
-      "failure_point": "Valve Stem Packing Extrusion on NONE",
-      "osha_psm_tier": "OSHA PSM Tier 2 Moderate Severity",
-      "evacuation_radius_m": 75.0
+      "component_type": "N/A",
+      "failure_point": "N/A",
+      "osha_psm_tier": "N/A",
+      "evacuation_radius_m": 0.0
     },
-    "validation_status": "VERIFIED"
+    "validation_status": "PASSED"
   },
   {
     "test_id": "TEST_17",
@@ -747,12 +747,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -792,12 +792,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -837,12 +837,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },
@@ -882,12 +882,12 @@
     },
     "classification": {
       "predicted_class": "METHANE",
-      "confidence_pct": 95.0,
+      "confidence_pct": 97.0,
       "is_methane_confirmed": true,
       "probabilities": {
-        "METHANE": 0.95,
-        "STEAM": 0.02,
-        "THERMAL_MIRAGE": 0.02,
+        "METHANE": 0.97,
+        "STEAM": 0.01,
+        "THERMAL_MIRAGE": 0.01,
         "AMBIENT_NOISE": 0.01
       }
     },

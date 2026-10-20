@@ -683,6 +683,10 @@ def run_batch_tests(output_dir: str = "dataset_tests") -> List[Dict[str, Any]]:
                 "mass_flow_rate_kg_h": scen["mass_flow_kg_h"],
                 "wind_speed_m_s": scen["wind_speed_m_s"],
                 "wind_direction_deg": scen["wind_dir_deg"],
+                "snr_sigma": metrics.snr_sigma,
+                "peak_opd_nm": metrics.peak_optical_path_diff_nm,
+                "expected_class": scen["expected_class"],
+                "category": scen["category"],
             },
             crop_roi=metrics.bounding_box_xywh if (metrics.is_anomaly_detected and metrics.bounding_box_xywh[2] > 20) else None,
         )

@@ -17,9 +17,16 @@ Computes:
 
 import json
 import math
+import os
 import numpy as np
 
-with open("dataset_tests/benchmark_test_results.json", "r", encoding="utf-8") as f:
+# Robust path resolution whether run from root or scripts/
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+data_path = os.path.join(BASE_DIR, "dataset_tests", "benchmark_test_results.json")
+if not os.path.exists(data_path):
+    data_path = "dataset_tests/benchmark_test_results.json"
+
+with open(data_path, "r", encoding="utf-8") as f:
     database = json.load(f)
 
 print("=" * 80)
@@ -198,7 +205,8 @@ metrics_output = {
     "case_study_comparisons": cs_comparisons
 }
 
-with open("dataset_tests/case_study_verification_report.json", "w", encoding="utf-8") as f:
+out_path = os.path.join(BASE_DIR, "dataset_tests", "case_study_verification_report.json")
+with open(out_path, "w", encoding="utf-8") as f:
     json.dump(metrics_output, f, indent=2)
 
 print(f"\n[OK] Case study verification report generated: dataset_tests/case_study_verification_report.json")

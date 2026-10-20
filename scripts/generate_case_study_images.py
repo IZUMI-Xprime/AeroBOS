@@ -14,7 +14,8 @@ import cv2
 import numpy as np
 import math
 
-out_dir = "assets/case_studies"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+out_dir = os.path.join(BASE_DIR, "assets", "case_studies")
 os.makedirs(out_dir, exist_ok=True)
 w, h = 640, 360
 font = cv2.FONT_HERSHEY_SIMPLEX

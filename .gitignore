@@ -1,11 +1,32 @@
+# Python bytecode & virtual environments
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
 .Python
 env/
 venv/
 .venv/
-.system_generated/
+ENV/
+
+# Distribution & builds
+build/
+dist/
+*.egg-info/
+
+# System & logs
 *.log
+.system_generated/
 scratch/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo

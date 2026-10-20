@@ -3,7 +3,7 @@
 > **OpenCV AI Competition 2026, powered by AWS**  
 > *Track: Industrial Computer Vision, Edge AI & Cloud Robotics on AWS Graviton*  
 > **Authors:** Elite Computer Vision Scientists & AWS Solutions Architects  
-> **Repository:** [AeroBOS Open-Source Submission](https://github.com/opencv-ai-competition-2026/AeroBOS)  
+> **Repository:** [AeroBOS Open-Source Submission](https://github.com/IZUMI-Xprime/AeroBOS)  
 
 [![OpenCV 5.0](https://img.shields.io/badge/OpenCV-5.0.0-blue.svg)](https://opencv.org/)
 [![AWS Graviton](https://img.shields.io/badge/AWS-Graviton3%20%7C%20Graviton4-orange.svg)](https://aws.amazon.com/ec2/graviton/)

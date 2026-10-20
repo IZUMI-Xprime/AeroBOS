@@ -206,10 +206,10 @@ AeroBOS benchmark evaluation against documented disasters and industrial campaig
 | Case Study | Historical Event | Historical Issue | AeroBOS Modeled Scenario | Ground Truth | AeroBOS Prediction | Accuracy | Response Latency |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **01** | [Aliso Canyon SS-25 Blowout](https://en.wikipedia.org/wiki/Aliso_Canyon_gas_leak) | 97,100 t $CH_4$ released; 112 days unobserved | `TEST_01`: Wellhead Tree Flange | `METHANE` | `METHANE` (97.0%) | **100% Match** | **1.45 s** (vs. Days) |
-| **02** | [Chevron Richmond Fire](https://www.csb.gov/chevron-refinery-fire/) | Invisible crude cloud ignited; 19 engulfed | `TEST_02`: Compressor Discharge | `METHANE` | `METHANE` (97.0%) | **100% Match** | **1.82 s** (vs. 120 s) |
-| **03** | [TotalEnergies TADI Rig](https://energy.colostate.edu/metec/) | Thermal mirages trigger optical false alarms | `TEST_04`: Boiler Steam Vent | `STEAM` | `STEAM` (96.0%) | **100% Match** | **0.95 s** (Suppressed) |
-| **04** | [Belmont County Blowout](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6936357/) | 120 t/h super-emitter; satellite spotted after 3d | `TEST_20`: Main Transmission Header | `METHANE` | `METHANE` (97.0%) | **100% Match** | **0.85 s** (vs. 3 Days) |
-| **05** | [EPA Permian Basin Audits](https://www.epa.gov/controlling-air-pollution-oil-and-natural-gas-operations) | 64% emissions from open thief hatches | `TEST_05`: Storage Tank Thief Hatch | `METHANE` | `METHANE` (97.0%) | **100% Match** | **1.20 s** (vs. 90 Days) |
+| **02** | [Chevron Richmond Fire](https://en.wikipedia.org/wiki/Chevron_Richmond_Refinery#2012_fire) | Invisible crude cloud ignited; 19 engulfed | `TEST_02`: Compressor Discharge | `METHANE` | `METHANE` (97.0%) | **100% Match** | **1.82 s** (vs. 120 s) |
+| **03** | [TotalEnergies TADI Rig](https://cstjf-pau.totalenergies.fr/en/our-expertise/leveraging-digital-innovation/tadi-test-center-international-reach-lacq) | Thermal mirages trigger optical false alarms | `TEST_04`: Boiler Steam Vent | `STEAM` | `STEAM` (96.0%) | **100% Match** | **0.95 s** (Suppressed) |
+| **04** | [Belmont County Blowout](https://www.esa.int/ESA_Multimedia/Images/2019/12/Methane_leak_visible_from_space) | 120 t/h super-emitter; satellite spotted after 3d | `TEST_20`: Main Transmission Header | `METHANE` | `METHANE` (97.0%) | **100% Match** | **0.85 s** (vs. 3 Days) |
+| **05** | [EPA Permian Basin Audits](https://www.epa.gov/newsreleases/epa-announces-significant-air-pollution-reductions-permian-basin-company-settlement) | 64% emissions from open thief hatches | `TEST_05`: Storage Tank Thief Hatch | `METHANE` | `METHANE` (97.0%) | **100% Match** | **1.20 s** (vs. 90 Days) |
 
 ### Formal Quantitative Metrics (from `dataset_tests/benchmark_test_results.json`)
 - **Detection Sensitivity (Recall):** $\frac{14}{14+0} = \mathbf{100.00\%}$
@@ -261,12 +261,17 @@ AeroBOS/
 ├── LICENSE                                # Apache 2.0 Open-Source License
 ├── .gitignore                             # Clean, standard Git ignore rules
 ├── assets/
-│   └── case_studies/                      # Historical forensic reference images
+│   └── case_studies/                      # Historical forensic reference & dedicated AeroBOS reconstructions
 │       ├── case_01_aliso_canyon_reference.jpg
+│       ├── case_01_aliso_canyon_aerobos.jpg
 │       ├── case_02_chevron_richmond_reference.jpg
+│       ├── case_02_chevron_richmond_aerobos.jpg
 │       ├── case_03_totalenergies_tadi_reference.jpg
+│       ├── case_03_totalenergies_tadi_aerobos.jpg
 │       ├── case_04_belmont_county_reference.jpg
-│       └── case_05_epa_permian_reference.jpg
+│       ├── case_04_belmont_county_aerobos.jpg
+│       ├── case_05_epa_permian_reference.jpg
+│       └── case_05_epa_permian_aerobos.jpg
 ├── dashboards/
 │   └── aerobos_grafana_dashboard.json     # Amazon Managed Grafana Dashboard specification
 ├── dataset_tests/                         # 20 Evaluated Scenarios (Original & Processed Images + Telemetry)

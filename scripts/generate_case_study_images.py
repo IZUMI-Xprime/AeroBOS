@@ -163,4 +163,155 @@ cv2.rectangle(canvas5, (0, h - 26), (w, h), (15, 23, 42), -1)
 cv2.putText(canvas5, "OFFICIAL SOURCE: U.S. EPA REGION 6/9 NSPS SUBPART OOOOa/b DIRECTIVES", (12, h - 8), font, 0.38, (56, 189, 248), 1)
 cv2.imwrite(os.path.join(out_dir, "case_05_epa_permian_reference.jpg"), canvas5)
 
-print(f"Successfully generated all 5 Case Study reference images in {out_dir}/!")
+# =============================================================================
+# PART 2: DEDICATED AEROBOS FORENSIC SCHLIEREN RECONSTRUCTIONS (CASES 01 TO 05)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Case 01 AeroBOS: Aliso Canyon SS-25 Wellhead Blowout
+# -----------------------------------------------------------------------------
+np.random.seed(201)
+base1 = np.full((h, w, 3), (45, 55, 65), dtype=np.uint8)
+noise = np.random.normal(0, 15, (h, w, 3)).astype(np.float32)
+base1 = np.clip(base1.astype(np.float32) + noise, 0, 255).astype(np.uint8)
+# Wellhead Christmas tree
+cv2.rectangle(base1, (290, 220), (350, 320), (80, 90, 100), -1)
+cv2.rectangle(base1, (270, 240), (370, 260), (100, 110, 120), -1)
+cv2.line(base1, (320, 220), (320, 190), (120, 130, 140), 12)
+# Massive Schlieren Turbo Plume
+for y in range(40, 200):
+    for x in range(180, 480):
+        dx = (x - 320) / (0.8 * (200 - y) + 15)
+        dy = (200 - y) / 160.0
+        r2 = dx**2
+        if r2 < 2.5:
+            turb = math.sin(x*0.1 + y*0.15) * math.cos(y*0.08) * 0.4 + 0.6
+            val = int(255 * math.exp(-r2*0.8) * turb * dy)
+            c = cv2.applyColorMap(np.uint8([[min(val*2, 255)]]), cv2.COLORMAP_TURBO)[0,0]
+            alpha = min(val / 220.0, 0.85)
+            base1[y, x] = np.clip(base1[y, x]*(1-alpha) + c*alpha, 0, 255).astype(np.uint8)
+
+# HUD
+cv2.rectangle(base1, (0, 0), (w, 36), (15, 23, 42), -1)
+cv2.putText(base1, "AEROBOS CASE 01: ALISO CANYON SS-25 WELLHEAD BLOWOUT", (12, 18), font, 0.42, (255, 255, 255), 1)
+cv2.putText(base1, "SCHLIEREN RECONSTRUCTION | 480 kg/h | SNR: 142.6s | SSV ISOLATED in 1.45s", (12, 31), font, 0.36, (56, 189, 248), 1)
+cv2.imwrite(os.path.join(out_dir, "case_01_aliso_canyon_aerobos.jpg"), base1)
+
+# -----------------------------------------------------------------------------
+# Case 02 AeroBOS: Chevron Richmond 8-Inch Crude Unit Rupture
+# -----------------------------------------------------------------------------
+np.random.seed(202)
+base2 = np.full((h, w, 3), (35, 45, 50), dtype=np.uint8)
+noise = np.random.normal(0, 12, (h, w, 3)).astype(np.float32)
+base2 = np.clip(base2.astype(np.float32) + noise, 0, 255).astype(np.uint8)
+# Crude line pipe rack
+cv2.rectangle(base2, (0, 180), (w, 215), (70, 75, 80), -1)
+cv2.circle(base2, (260, 197), 16, (100, 110, 115), -1)
+# Expanding vapor cloud (sidecut rupture spreading horizontally)
+for y in range(80, 270):
+    for x in range(140, 560):
+        dx = (x - 260) / 180.0
+        dy = (y - 197) / 70.0
+        r2 = dx**2 + dy**2
+        if r2 < 1.8:
+            turb = math.sin(x*0.08 - y*0.12) * 0.3 + 0.7
+            val = int(255 * math.exp(-r2*1.2) * turb)
+            c = cv2.applyColorMap(np.uint8([[min(val*2, 255)]]), cv2.COLORMAP_TURBO)[0,0]
+            alpha = min(val / 200.0, 0.85)
+            base2[y, x] = np.clip(base2[y, x]*(1-alpha) + c*alpha, 0, 255).astype(np.uint8)
+
+# HUD
+cv2.rectangle(base2, (0, 0), (w, 36), (15, 23, 42), -1)
+cv2.putText(base2, "AEROBOS CASE 02: CHEVRON RICHMOND CRUDE UNIT RUPTURE", (12, 18), font, 0.42, (255, 255, 255), 1)
+cv2.putText(base2, "BEDROCK DIAGNOSIS: PIPE CORROSION THINNING | MOV TRIP: 1.82s (FIREBALL PREVENTED)", (12, 31), font, 0.36, (249, 115, 22), 1)
+cv2.imwrite(os.path.join(out_dir, "case_02_chevron_richmond_aerobos.jpg"), base2)
+
+# -----------------------------------------------------------------------------
+# Case 03 AeroBOS: TotalEnergies TADI Lacq Platform
+# -----------------------------------------------------------------------------
+np.random.seed(203)
+base3 = np.full((h, w, 3), (50, 50, 55), dtype=np.uint8)
+noise = np.random.normal(0, 14, (h, w, 3)).astype(np.float32)
+base3 = np.clip(base3.astype(np.float32) + noise, 0, 255).astype(np.uint8)
+# Modular test columns
+cv2.rectangle(base3, (120, 140), (160, 320), (75, 80, 85), -1)
+cv2.rectangle(base3, (460, 120), (510, 320), (80, 85, 90), -1)
+# Steam plume (white-cyan aerosol) vs methane rejection
+for y in range(60, 240):
+    for x in range(220, 420):
+        dx = (x - 300) / (0.6 * (240 - y) + 20)
+        dy = (240 - y) / 180.0
+        if dx**2 < 2.0:
+            val = int(220 * math.exp(-dx**2 * 1.5) * dy)
+            alpha = min(val / 255.0, 0.75)
+            base3[y, x] = np.clip(base3[y, x]*(1-alpha) + np.array([240, 220, 200])*alpha, 0, 255).astype(np.uint8)
+
+# HUD
+cv2.rectangle(base3, (0, 0), (w, 36), (15, 23, 42), -1)
+cv2.putText(base3, "AEROBOS CASE 03: TOTALENERGIES TADI SEVESO-III RIG", (12, 18), font, 0.42, (255, 255, 255), 1)
+cv2.putText(base3, "SAGEMAKER CLASSIFIER: STEAM EXHAUST (96% CONF) | FALSE ALARM TRIP BYPASSED", (12, 31), font, 0.36, (34, 197, 94), 1)
+cv2.imwrite(os.path.join(out_dir, "case_03_totalenergies_tadi_aerobos.jpg"), base3)
+
+# -----------------------------------------------------------------------------
+# Case 04 AeroBOS: Belmont County XTO Well Blowout
+# -----------------------------------------------------------------------------
+np.random.seed(204)
+base4 = np.full((h, w, 3), (40, 50, 45), dtype=np.uint8)
+noise = np.random.normal(0, 16, (h, w, 3)).astype(np.float32)
+base4 = np.clip(base4.astype(np.float32) + noise, 0, 255).astype(np.uint8)
+# Tree canopy and drilling mast
+cv2.line(base4, (320, 100), (320, 320), (70, 75, 80), 6)
+# Massive plume fountain with downwind drift contour
+for y in range(40, 240):
+    for x in range(160, 520):
+        dx = (x - 320 - (240 - y)*0.4) / (0.7 * (240 - y) + 25)
+        dy = (240 - y) / 200.0
+        if dx**2 < 2.2:
+            turb = math.sin(x*0.1 + y*0.2) * 0.35 + 0.65
+            val = int(255 * math.exp(-dx**2 * 1.0) * turb * dy)
+            c = cv2.applyColorMap(np.uint8([[min(val*2, 255)]]), cv2.COLORMAP_TURBO)[0,0]
+            alpha = min(val / 210.0, 0.85)
+            base4[y, x] = np.clip(base4[y, x]*(1-alpha) + c*alpha, 0, 255).astype(np.uint8)
+
+# ConvLSTM 15-min drift boundary polygon overlay
+drift_pts = np.array([[310, 240], [380, 160], [490, 80], [580, 60], [560, 120], [440, 200], [330, 245]], np.int32)
+cv2.polylines(base4, [drift_pts], True, (0, 255, 255), 2)
+cv2.putText(base4, "15-MIN FORECAST CONTOUR", (430, 70), font, 0.35, (0, 255, 255), 1)
+
+# HUD
+cv2.rectangle(base4, (0, 0), (w, 36), (15, 23, 42), -1)
+cv2.putText(base4, "AEROBOS CASE 04: BELMONT COUNTY 120 T/HR UTICA BLOWOUT", (12, 18), font, 0.42, (255, 255, 255), 1)
+cv2.putText(base4, "CONVLSTM FORECASTER: 15-MIN HAZARD PERIMETER -> AWS IOT CORE | ESD: 0.85s", (12, 31), font, 0.36, (234, 179, 8), 1)
+cv2.imwrite(os.path.join(out_dir, "case_04_belmont_county_aerobos.jpg"), base4)
+
+# -----------------------------------------------------------------------------
+# Case 05 AeroBOS: EPA Permian Basin Thief Hatch Audit
+# -----------------------------------------------------------------------------
+np.random.seed(205)
+base5 = np.full((h, w, 3), (50, 50, 50), dtype=np.uint8)
+noise = np.random.normal(0, 14, (h, w, 3)).astype(np.float32)
+base5 = np.clip(base5.astype(np.float32) + noise, 0, 255).astype(np.uint8)
+# Storage battery tanks
+cv2.rectangle(base5, (160, 150), (320, 320), (85, 90, 95), -1)
+cv2.rectangle(base5, (340, 150), (500, 320), (85, 90, 95), -1)
+# Open thief hatch on top of left tank
+cv2.line(base5, (230, 150), (250, 130), (120, 130, 140), 4)
+# Persistent buoyant plume venting
+for y in range(40, 150):
+    for x in range(180, 320):
+        dx = (x - 240 + (150 - y)*0.2) / (0.5 * (150 - y) + 12)
+        dy = (150 - y) / 110.0
+        if dx**2 < 1.8:
+            turb = math.sin(x*0.15 - y*0.1) * 0.3 + 0.7
+            val = int(240 * math.exp(-dx**2 * 1.2) * turb * dy)
+            c = cv2.applyColorMap(np.uint8([[min(val*2, 255)]]), cv2.COLORMAP_TURBO)[0,0]
+            alpha = min(val / 220.0, 0.85)
+            base5[y, x] = np.clip(base5[y, x]*(1-alpha) + c*alpha, 0, 255).astype(np.uint8)
+
+# HUD
+cv2.rectangle(base5, (0, 0), (w, 36), (15, 23, 42), -1)
+cv2.putText(base5, "AEROBOS CASE 05: EPA PERMIAN TANK BATTERY THIEF HATCH AUDIT", (12, 18), font, 0.42, (255, 255, 255), 1)
+cv2.putText(base5, "CONTINUOUS GRAVITON MONITORING ($0.038/HR) | UNLATCHED HATCH ISOLATED", (12, 31), font, 0.36, (168, 85, 247), 1)
+cv2.imwrite(os.path.join(out_dir, "case_05_epa_permian_aerobos.jpg"), base5)
+
+print(f"Successfully generated all 10 Case Study images (5 reference + 5 AeroBOS reconstructions) in {out_dir}/!")

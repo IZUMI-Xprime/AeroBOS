@@ -260,13 +260,22 @@ OPENCV_GAS/
 │   ├── orchestrator.py                 # Amazon Bedrock Agent Loop & MCP Server
 │   ├── digital_twin_streamer.py        # Amazon Timestream & IoT Core MQTT streamer
 │   └── synthetic_plume.py              # Physics-based synthetic Schlieren generator
+├── ai_orchestrator.py                  # SageMaker Filter, Bedrock Multimodal Diagnostician, ConvLSTM Forecaster
+├── batch_test_database.py              # 20-Image Industrial Benchmark Database Evaluator
+├── dataset_tests/                      # 20 Evaluated Scenarios (Annotated Images + JSON Telemetry)
+│   ├── benchmark_test_results.json     # Complete metrics: SNR, Mass Flow, AI Class, Valve Trip, GeoJSON
+│   └── test_01_annotated.jpg ... test_20_annotated.jpg
 ├── benchmark_bos.py                    # Graviton (Arm64) vs x86 COOL Benchmark Harness
-├── demo_aerobos.py                     # End-to-end interactive simulation & test script
+├── demo_aerobos.py                     # Baseline end-to-end interactive simulation script
+├── demo_ai_upgrade.py                  # AI/ML upgrade validation with SageMaker & Bedrock mock pipeline
+├── index.html                          # Interactive Web Portfolio (Canvas Sim, TCO Calc, 20-Image Test Gallery)
 ├── dashboards/
 │   └── aerobos_grafana_dashboard.json  # Amazon Managed Grafana Dashboard definition
 ├── infrastructure/
 │   └── aerobos_cloudformation.yaml     # AWS Infrastructure Stack (IoT, Timestream, SNS, S3)
 ├── aerobos_plume_annotated.jpg         # Rendered sample false-color Schlieren snapshot
+├── predicted_plume_hazard_15min.geojson# 15-minute predictive plume footprint (RFC 7946 GeoJSON)
+├── HUGGINGFACE_SPACE_README.md         # Deployment metadata for Hugging Face Spaces (Static SDK)
 └── README.md                           # Competition Submission Architecture & Whitepaper
 ```
 

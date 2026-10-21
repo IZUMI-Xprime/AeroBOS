@@ -1,0 +1,9 @@
+# GitHub Linguist Language Detection Overrides
+# Documentation: https://github.com/github-linguist/linguist/blob/master/docs/overrides.md
+
+# The standalone portfolio (index.html) embeds 51 base64 images (~8.9 MB) for offline viewing.
+# Exclude HTML from repository language calculation so Python correctly shows as the primary language (~100%).
+index.html linguist-detectable=false
+index.html linguist-generated=true
+index.html linguist-documentation=true
+*.html linguist-detectable=false

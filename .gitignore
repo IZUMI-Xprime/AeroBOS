@@ -18,6 +18,7 @@ dist/
 *.log
 .system_generated/
 scratch/
+uploads/
 
 # Operating System files
 .DS_Store

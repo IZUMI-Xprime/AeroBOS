@@ -4,6 +4,8 @@
 **OpenCV AI Competition 2026, powered by AWS**  
 *Track: Industrial Computer Vision, Edge AI & Cloud Robotics on AWS Graviton*
 
+[![Live Hosted Portfolio](https://img.shields.io/badge/Live%20Portfolio-izumi--xprime.github.io%2FAeroBOS-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white)](https://izumi-xprime.github.io/AeroBOS/)
+
 ---
 
 [![OpenCV 5.0](https://img.shields.io/badge/OpenCV-5.0.0-blue.svg?logo=opencv&logoColor=white)](https://opencv.org/)
@@ -330,9 +332,14 @@ python benchmark_bos.py --frames-1080p 30 --frames-4k 15
 
 ## 🌐 Interactive Web Portfolio
 
-AeroBOS includes a complete web portfolio and simulator in [`index.html`](index.html).
+[![Live Hosted Portfolio](https://img.shields.io/badge/🌐%20Launch%20Live%20Portfolio-izumi--xprime.github.io%2FAeroBOS-2ea44f?style=for-the-badge&logo=googlechrome&logoColor=white)](https://izumi-xprime.github.io/AeroBOS/)
 
-To view locally:
+> **Live Deployment:** The entire AeroBOS interactive dashboard and 20-scenario benchmark suite is hosted live on GitHub Pages at:  
+> **👉 [https://izumi-xprime.github.io/AeroBOS/](https://izumi-xprime.github.io/AeroBOS/)**
+
+AeroBOS includes a complete, fully self-contained web portfolio and simulator in [`index.html`](index.html).
+
+### View Locally:
 ```bash
 # Start local web server
 python -m http.server 8080

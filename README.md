@@ -22,10 +22,10 @@
 - [Executive Overview](#-executive-overview)
 - [System Architecture](#-system-architecture)
 - [Optical Schlieren Physics & Mathematics](#-optical-schlieren-physics--mathematics)
-- [Cloud AI & Deep Learning Integration (`ai_orchestrator.py`)](#-cloud-ai--deep-learning-integration-ai_orchestratorpy)
-- [20-Scenario Industrial Benchmark Dataset](#-20-scenario-industrial-benchmark-dataset)
-- [Quantitative Accuracy & Case Study Verification](#-quantitative-accuracy--case-study-verification)
-- [AWS Graviton & COOL Cloud Economics (TCO)](#-aws-graviton--cool-cloud-economics-tco)
+- [Offline Video Processing Pipeline](#-offline-video-processing-pipeline)
+- [Streamlit Web Application (`apps/app.py`)](#-streamlit-web-application-appsapppy)
+- [CLI Video Processing (`apps/process_video.py`)](#-cli-video-processing-appsprocess_videopy)
+- [Synthetic Verification Generator (`aerobos/synthetic_sample.py`)](#-synthetic-verification-generator-aerobossynthetic_samplepy)
 - [Repository File Structure](#-repository-file-structure)
 - [Quickstart & Reproduction Guide](#-quickstart--reproduction-guide)
 - [Interactive Web Portfolio](#-interactive-web-portfolio)
@@ -238,54 +238,114 @@ AeroBOS is compiled natively with Arm Neoverse Scalable Vector Extensions (SVE) 
 
 ---
 
+---
+
+## 📹 Offline Video Processing Pipeline
+
+AeroBOS features a completely offline, production-grade video processing pipeline designed to detect, track, and segment invisible gas leaks in surveillance video files with zero cloud dependencies:
+
+```
+[Input Video (.mp4 / .avi / .mov)]
+              │
+              ▼
+   [Frame 0: Baseline Normalization] ─── Local contrast equalization (removes lighting drift)
+              │
+              ▼
+   [OpenCV 5 DIS Optical Flow]       ─── Dense sub-pixel vector field d = (u, v)
+              │
+              ▼
+   [Spatial Divergence (Sobel)]      ─── ∇ · d = ∂u/∂x + ∂v/∂y (separates gas expansion from camera motion)
+              │
+              ▼
+   [2D Poisson Solver via FFT]       ─── Inverts ∇²Φ = ∇·d via Discrete Fourier Transform (solve_poisson_fft)
+              │
+              ▼
+   [Adaptive Sigma Thresholding]     ─── Segments plume core using dynamic noise floor (mean + 2.5 * std)
+              │
+              ▼
+   [Augmented Reality HUD Overlay]   ─── Overlays TURBO colormap heatmap, red contours, and orange bounding boxes
+              │
+              ▼
+[Output H.264 MP4 Video (Streamable in Browser)]
+```
+
+---
+
+## 🌐 Streamlit Web Application (`apps/app.py`)
+
+AeroBOS provides an industrial, dark-mode Streamlit web application featuring synchronized side-by-side video comparison and real-time diagnostic telemetry:
+
+- **Drag-and-Drop Ingestion:** Accepts `.mp4`, `.avi`, and `.mov` video files.
+- **Built-In Benchmark Selector:** 1-click execution on pre-configured test videos (`sample_test_video.mp4`).
+- **Synchronized Side-by-Side Playback:** Compares raw surveillance input (invisible gas) alongside the AeroBOS TURBO Schlieren HUD in real-time.
+- **Diagnostic Telemetry KPIs:** Real-time metrics for total frames evaluated, detection rate (%), peak displacement, average plume area (pixels), and execution latency.
+- **Direct Video Export:** In-browser MP4 download button.
+
+```bash
+# Launch Streamlit Web UI
+streamlit run apps/app.py
+```
+Open **[http://localhost:8501](http://localhost:8501)** in your browser.
+
+---
+
+## ⚙️ CLI Video Processing (`apps/process_video.py`)
+
+For headless automation, batch processing, and edge deployments, AeroBOS provides a high-throughput CLI tool:
+
+```bash
+python apps/process_video.py --input sample_test_video.mp4 --output sample_annotated.mp4 --sigma 2.5 --min-area 150
+```
+
+### CLI Arguments:
+| Argument | Type | Default | Description |
+| :--- | :---: | :---: | :--- |
+| `--input`, `-i` | `str` | *Required* | Path to input surveillance video (`.mp4`, `.avi`, `.mov`) |
+| `--output`, `-o` | `str` | *Required* | Path to destination annotated video (`.mp4`) |
+| `--sigma` | `float` | `2.5` | Adaptive threshold multiplier for refractive plume segmentation |
+| `--min-area` | `int` | `150` | Minimum connected contour area in pixels |
+| `--reference-mode` | `str` | `static` | `static` (compares to baseline frame 0) or `running` (compares to previous frame) |
+| `--scale` | `float` | `1.0` | Resolution scaling factor (e.g. `0.5` for 2x downscaled edge speed) |
+
+---
+
+## 🔬 Synthetic Verification Generator (`aerobos/synthetic_sample.py`)
+
+To mathematically verify the pipeline without physical gas releases, `aerobos/synthetic_sample.py` physically generates a 5-second test video at 30 FPS (150 frames):
+- **High-Contrast Gravel Texture:** Generated via `np.random.randint` with multi-scale aggregate structure.
+- **Frames 0–30:** Baseline static scene with minor sensor noise.
+- **Frames 31–150:** Moving 2D Gaussian refractive displacement field applied via `cv2.remap` simulating Snell's Law and Gladstone-Dale light ray deflection through an expanding turbulent gas plume.
+
+```bash
+# Generate the verification test video
+python aerobos/synthetic_sample.py
+```
+*Outputs: `sample_test_video.mp4` (872 KB, 150 frames).*
+
+---
+
 ## 📂 Repository File Structure
 
 ```
 AeroBOS/
-├── aerobos/                               # Production Python Library
-│   ├── __init__.py                        # Version & top-level exports
-│   ├── refractometer.py                   # SchlierenRefractometer (OpenCV 5 + FFT Poisson)
-│   ├── plume_analysis.py                  # 3-Sigma Anomaly, Contour & Mass Estimation
-│   ├── dispersion_model.py                # Gaussian dispersion & Gladstone-Dale inversion
-│   ├── orchestrator.py                    # Amazon Bedrock Agent Loop & MCP Server
-│   ├── digital_twin_streamer.py           # Amazon Timestream & AWS IoT Core MQTT Client
-│   └── synthetic_plume.py                 # Physics-based synthetic Schlieren generator
-├── ai_orchestrator.py                     # AWS SageMaker, Bedrock Claude 3.5 & ConvLSTM Module
-├── batch_test_database.py                 # 20-Scenario Industrial Test Runner & Evaluator
-├── benchmark_bos.py                       # Graviton (Arm64) vs x86 COOL Benchmark Harness
-├── benchmark_results.json                 # Exported pipeline benchmark latency results
-├── demo_aerobos.py                        # Standalone end-to-end interactive simulation script
-├── demo_ai_upgrade.py                     # AI/ML upgrade validation with SageMaker & Bedrock mock pipeline
-├── index.html                             # Web Portfolio, Interactive Sim & Dual-Image Gallery
-├── predicted_plume_hazard_15min.geojson   # 15-Minute predictive plume drift footprint (GeoJSON)
-├── aerobos_plume_annotated.jpg            # False-color Schlieren hero snapshot with HUD
-├── requirements.txt                       # Python dependencies
-├── LICENSE                                # Apache 2.0 Open-Source License
-├── .gitignore                             # Clean, standard Git ignore rules
-├── assets/
-│   └── case_studies/                      # Historical forensic reference & dedicated AeroBOS reconstructions
-│       ├── case_01_aliso_canyon_reference.jpg
-│       ├── case_01_aliso_canyon_aerobos.jpg
-│       ├── case_02_chevron_richmond_reference.jpg
-│       ├── case_02_chevron_richmond_aerobos.jpg
-│       ├── case_03_totalenergies_tadi_reference.jpg
-│       ├── case_03_totalenergies_tadi_aerobos.jpg
-│       ├── case_04_belmont_county_reference.jpg
-│       ├── case_04_belmont_county_aerobos.jpg
-│       ├── case_05_epa_permian_reference.jpg
-│       └── case_05_epa_permian_aerobos.jpg
-├── dashboards/
-│   └── aerobos_grafana_dashboard.json     # Amazon Managed Grafana Dashboard specification
-├── dataset_tests/                         # 20 Evaluated Scenarios (Original & Processed Images + Telemetry)
-│   ├── benchmark_test_results.json        # Ground-truth, SNR, class probabilities, valve actions
-│   ├── case_study_verification_report.json# Quantitative accuracy report
-│   ├── test_01_original.jpg ... test_20_original.jpg   # Raw CCTV frames (Invisible Gas)
-│   └── test_01_annotated.jpg ... test_20_annotated.jpg # AeroBOS Schlieren Reconstructions
-├── infrastructure/
-│   └── aerobos_cloudformation.yaml        # CloudFormation template for IoT, Timestream, SNS & S3
-└── scripts/
-    ├── generate_case_study_images.py      # Generates forensic case study reference images
-    └── verify_case_studies.py             # Computes accuracy matrix & quantitative verification
+├── aerobos/                       # Core Physics & Computer Vision Engine
+│   ├── __init__.py                # Module exports (BOSCore, PlumeAnalyzer, generate_sample_video)
+│   ├── bos_core.py                # OpenCV DIS Optical Flow & 2D Poisson FFT Inversion
+│   ├── plume_metrics.py           # Adaptive Sigma Thresholding, Morphology & TURBO Overlay
+│   ├── synthetic_sample.py        # 5-second Synthetic Methane Test Video Generator (cv2.remap)
+│   ├── refractometer.py           # High-resolution SchlierenRefractometer pipeline
+│   ├── plume_analysis.py          # Morphological PlumeAnalyzer & Noise Floor Tracking
+│   └── dispersion_model.py        # Gladstone-Dale Column Density & EPA Mass Flux Modeling
+├── apps/                          # Execution Interfaces
+│   ├── app.py                     # Aesthetic Streamlit Web Application (Side-by-Side Playback)
+│   └── process_video.py           # Standalone Offline CLI Video Processing Script
+├── sample_test_video.mp4          # 5-second verification test video (640x360 @ 30 FPS)
+├── sample_annotated.mp4           # Processed H.264 video with TURBO Schlieren HUD
+├── requirements.txt               # opencv-contrib-python, numpy, scipy, streamlit
+├── index.html                     # Standalone Self-Contained Web Portfolio (Hosted on Pages)
+├── LICENSE                        # Apache 2.0 Open-Source License
+├── README.md                      # Comprehensive Architecture & Execution Guide
+└── assets/                        # Case study visuals and reference datasets
 ```
 
 ---
@@ -299,34 +359,23 @@ cd AeroBOS
 pip install -r requirements.txt
 ```
 
-### 2. Run the Interactive Simulation
+### 2. Generate the Physical Verification Test Video
 ```bash
-python demo_aerobos.py
+python aerobos/synthetic_sample.py
 ```
-*Executes Background-Oriented Schlieren extraction, detects synthetic methane blowout, estimates mass flow, triggers Bedrock Agent tools, and saves `aerobos_plume_annotated.jpg`.*
+*Creates `sample_test_video.mp4` (5.0s, 150 frames @ 30 FPS) with high-contrast gravel texture and moving 2D Gaussian refractive spatial displacement.*
 
-### 3. Run the AI Upgrade Pipeline (SageMaker + Bedrock + ConvLSTM)
+### 3. Run the CLI Video Pipeline
 ```bash
-python demo_ai_upgrade.py
+python apps/process_video.py --input sample_test_video.mp4 --output sample_annotated.mp4
 ```
-*Validates the 30-frame temporal classification on SageMaker, multimodal visual diagnosis via Bedrock Claude 3.5 Sonnet, and exports `predicted_plume_hazard_15min.geojson`.*
+*Processes all 150 frames through DIS optical flow and 2D Poisson FFT inversion, outputting `sample_annotated.mp4` with false-color TURBO Schlieren overlays, contours, and bounding boxes.*
 
-### 4. Run the 20-Scenario Benchmark Evaluator
+### 4. Launch the Streamlit Web Application
 ```bash
-python batch_test_database.py
+streamlit run apps/app.py
 ```
-*Tests all 20 industrial scenarios, generates dual original/annotated image pairs in `dataset_tests/`, and compiles `benchmark_test_results.json`.*
-
-### 5. Verify Case Study Quantitative Accuracy
-```bash
-python scripts/verify_case_studies.py
-```
-*Computes the complete precision/recall/F1 matrix and validates 100% case study detection.*
-
-### 6. Run the Graviton Pipeline Benchmark
-```bash
-python benchmark_bos.py --frames-1080p 30 --frames-4k 15
-```
+*Opens the aesthetic industrial web interface on **http://localhost:8501** for drag-and-drop video processing and side-by-side synchronized video playback.*
 
 ---
 

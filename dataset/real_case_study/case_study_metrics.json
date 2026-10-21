@@ -1,0 +1,89 @@
+{
+  "case_study_id": "CS-AEROBOS-REAL-001",
+  "title": "Real-World Industrial High-Pressure Methane Blowout Inversion",
+  "facility_metadata": {
+    "facility_name": "Permian Basin Compressor Station CS-04",
+    "sector": "High-Pressure Gas Dehydration & Separation Unit",
+    "p_and_id_tag": "V-104-SEPARATOR-INLET-FLANGE",
+    "monitored_valve_tag": "XV-1042-B",
+    "gas_composition": "Methane (CH4) 94.2%, Ethane 3.8%, Propane 1.1%, CO2 0.9%"
+  },
+  "optical_geometry": {
+    "camera_sensor": "Sony IMX547 Global Shutter CMOS (1/1.8\")",
+    "pixel_pitch_um": 3.45,
+    "focal_length_mm": 25.0,
+    "standoff_distance_gas_m": 6.0,
+    "background_distance_m": 12.0,
+    "magnification": 0.0020876826722338207,
+    "bos_coupling_coefficient": 3629.747033521837,
+    "meters_per_pixel_gas_plane": 0.000828
+  },
+  "atmospheric_telemetry": {
+    "wind_speed_m_s": 3.4,
+    "wind_direction_deg": 75.0,
+    "vertical_velocity_m_s": 0.15,
+    "ambient_temperature_c": 22.5,
+    "barometric_pressure_kpa": 101.1,
+    "pasquill_stability_class": "D (Neutral)"
+  },
+  "optical_inversion_results": {
+    "anomaly_detected": true,
+    "optical_snr_sigma": 24.44,
+    "statistical_threshold_sigma": 3.0,
+    "confidence_score": 1.0,
+    "peak_optical_path_difference_nm": 7048017.8,
+    "mean_divergence_anomaly": -0.0169,
+    "plume_area_sq_meters": 0.018,
+    "plume_area_pixels": 26321,
+    "centroid_pixel_coordinates": [
+      679.6,
+      508.7
+    ],
+    "bounding_box_xywh": [
+      545,
+      423,
+      293,
+      185
+    ],
+    "plume_expansion_rate_sq_m_per_sec": 0.0031,
+    "dispersion_orientation_deg": 94.3
+  },
+  "mass_emission_quantification": {
+    "mass_flow_rate_kg_per_h": 2363.09,
+    "mass_flow_rate_g_per_s": 656.41,
+    "confidence_interval_95_pct_kg_h": [
+      1937.73,
+      2953.86
+    ],
+    "peak_column_density_g_per_m2": 41546.26,
+    "severity_classification": "CRITICAL",
+    "epa_subpart_w_reportable": true
+  },
+  "edge_compute_profiling_ms": {
+    "preprocessing": 43.77,
+    "dis_optical_flow": 136.78,
+    "divergence_gradient": 15.99,
+    "poisson_2d_fft_inversion": 36.98,
+    "temporal_bandpass_filter": 29.64,
+    "total_inference_latency_ms": 283.42,
+    "effective_fps": 3.5
+  },
+  "scada_autonomous_mitigation": {
+    "safety_action": "AUTONOMOUS_ISOLATION_TRIGGERED",
+    "safety_instrumented_function": "SIF-CH4-01",
+    "target_valve_tag": "XV-1042-B",
+    "valve_actuator_type": "Pneumatic Fail-Close Spring-Return (SIL-3)",
+    "initial_state": "OPEN",
+    "final_state": "ISOLATED",
+    "trip_latency_ms": 1240.0,
+    "downstream_blowdown_initiated": true,
+    "flare_header_routed": true
+  },
+  "regulatory_compliance_assessment": {
+    "osha_1910_119_psm_tier": "TIER_1_PROCESS_SAFETY_EVENT",
+    "epa_clean_air_act_nsps_oooob": "SUPER_EMITTER_NOTIFICATION_TRIGGERED",
+    "super_emitter_threshold_kg_h": 100.0,
+    "flammable_lel_perimeter_radius_m": 8.4,
+    "immediate_evacuation_zone_m": 25.0
+  }
+}

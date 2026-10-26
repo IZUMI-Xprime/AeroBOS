@@ -574,7 +574,7 @@ def main():
             "-i", raw_scene_mp4,
             "-i", wav_file,
             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18",
-            "-c:a", "aac", "-b:a", "192k",
+            "-c:a", "aac", "-b:a", "256k", "-ar", "48000",
             "-shortest",
             av_scene_mp4
         ]
@@ -602,7 +602,7 @@ def main():
         "-f", "concat", "-safe", "0",
         "-i", concat_list_file,
         "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18",
-        "-c:a", "aac", "-b:a", "192k",
+        "-c:a", "aac", "-b:a", "256k", "-ar", "48000",
         "-movflags", "+faststart",
         final_mp4
     ]

@@ -31,3 +31,7 @@ $RECYCLE.BIN/
 .idea/
 *.swp
 *.swo
+
+# Video build cache
+build_video/
+AeroBOS_YouTube_Presentation.mp4
